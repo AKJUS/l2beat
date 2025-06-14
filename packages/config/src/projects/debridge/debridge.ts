@@ -27,7 +27,7 @@ export const debridge: Bridge = {
         'https://reddit.com/r/debridge/',
         'https://linkedin.com/company/debridge-finance',
       ],
-      apps: ['https://app.debridge.finance'],
+      bridges: ['https://app.debridge.finance'],
     },
     description:
       'deBridge is an interoperability layer that enables messaging between various blockchains. For the typical token transfer, "deToken" is minted on the destination chain.',
@@ -40,7 +40,7 @@ export const debridge: Bridge = {
         tokens: [
           'USDC',
           'WETH',
-          'FRAX',
+          'FRAX.legacy',
           'ETH',
           'USDT',
           'WBTC',

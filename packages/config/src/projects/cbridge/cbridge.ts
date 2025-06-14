@@ -21,7 +21,7 @@ export const cBridge: Bridge = {
     category: 'Hybrid',
     links: {
       websites: ['https://celer.network/'],
-      apps: ['https://cbridge.celer.network/'],
+      bridges: ['https://cbridge.celer.network/'],
       explorers: [
         'https://cbridge-analytics.celer.network/',
         'https://celerscan.com/',
@@ -52,12 +52,12 @@ export const cBridge: Bridge = {
           'USDC',
           'WETH',
           'USDT',
-          'FRAX',
+          'FRAX.legacy',
           'DAI',
           'RLY',
           'WBTC',
           'CELR',
-          'FXS',
+          'FRAX',
           'WXT',
         ],
         chain: 'ethereum',

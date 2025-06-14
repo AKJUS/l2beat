@@ -16,7 +16,7 @@ export const synapse: Bridge = {
     slug: 'synapse',
     links: {
       websites: ['https://synapseprotocol.com/landing'],
-      apps: ['https://synapseprotocol.com'],
+      bridges: ['https://synapseprotocol.com'],
       documentation: ['https://docs.synapseprotocol.com/'],
       repositories: ['https://github.com/synapsecns'],
       explorers: ['https://analytics.synapseprotocol.com/'],
@@ -36,7 +36,16 @@ export const synapse: Bridge = {
       {
         address: EthereumAddress('0x2796317b0fF8538F253012862c06787Adfb8cEb6'),
         sinceTimestamp: UnixTime(1629082107),
-        tokens: ['ETH', 'WETH', 'FRAX', 'USDT', 'USDC', 'WBTC', 'DAI', 'gOHM'],
+        tokens: [
+          'ETH',
+          'WETH',
+          'FRAX.legacy',
+          'USDT',
+          'USDC',
+          'WBTC',
+          'DAI',
+          'gOHM',
+        ],
         chain: 'ethereum',
       },
       // address of the Synapse AMM pool used for swaps to canonical tokens

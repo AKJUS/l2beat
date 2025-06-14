@@ -17,15 +17,17 @@ const getDaThroughputSummaryData = async () => {
   const db = getDb()
   const to = UnixTime.toStartOf(UnixTime.now(), 'day')
   const from = to - 7 * UnixTime.DAY
-  const throughput = await db.dataAvailability2.getByProjectIdsAndTimeRange(
+  const throughput = await db.dataAvailability.getByProjectIdsAndTimeRange(
     ['ethereum', 'celestia', 'avail'],
     [from, to],
   )
   if (throughput.length === 0) {
     return undefined
   }
-  const { grouped, minTimestamp, maxTimestamp } =
-    groupByTimestampAndDaLayerId(throughput)
+  const { grouped, minTimestamp, maxTimestamp } = groupByTimestampAndDaLayerId(
+    throughput,
+    'daily',
+  )
 
   return {
     latest: {

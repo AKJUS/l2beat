@@ -1,7 +1,7 @@
 {
   "name": "zklinknova",
   "chain": "mantle",
-  "blockNumber": 79284086,
+  "blockNumber": 80670848,
   "configHash": "0x913f06f0bd66f4816f0f7df54f089c9d2f78ea3aeecfe853107fd73e5ea67d6c",
   "entries": [
     {
@@ -206,11 +206,11 @@
         "getGateway": "0xe946aBB40928326ce5bFF303E7B8f0f253EA39D0",
         "getGovernor": "0x1aB4D3cfcCCB28DBc8993454f461f3565281BB60",
         "getPriorityTxMaxGasLimit": 72000000,
-        "getTotalBatchesExecuted": 58797,
+        "getTotalBatchesExecuted": 64122,
         "getTotalPriorityTxs": 880,
         "owner": "0x1aB4D3cfcCCB28DBc8993454f461f3565281BB60",
         "paused": true,
-        "totalBatchesExecuted": 58797,
+        "totalBatchesExecuted": 64122,
         "totalPriorityTxs": 880,
         "totalSyncedPriorityTxs": 880,
         "totalValidatorForwardFee": "1145994696585755653058",

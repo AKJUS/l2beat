@@ -60,7 +60,7 @@ export const loopring: ScalingProject = {
     category: 'ZK Rollup',
     links: {
       websites: ['https://loopring.org'],
-      apps: ['https://loopring.io/#/trade'],
+      bridges: ['https://loopring.io/#/trade'],
       documentation: [
         'https://github.com/Loopring/protocols/blob/master/packages/loopring_v3/DESIGN.md',
         'https://docs.loopring.io/',
@@ -446,7 +446,7 @@ export const loopring: ScalingProject = {
   milestones: [
     {
       title: 'Loopring ZK Rollup is live',
-      url: 'https://medium.com/loopring-protocol/loopring-deployed-protocol-3-0-on-ethereum-a33103c9e5bf',
+      url: 'https://medium.com/loopring-protocol/loopring-protocol-3-0-zksnarks-for-scalability-845b35a8b75b',
       date: '2019-12-04T00:00:00Z',
       description:
         'Loopring Protocol 3.0 is fully operational with support for orderbook trading on WeDex.',
