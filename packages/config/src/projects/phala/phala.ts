@@ -24,6 +24,7 @@ import {
   generateDiscoveryDrivenContracts,
   generateDiscoveryDrivenPermissions,
 } from '../../templates/generateDiscoveryDrivenSections'
+import { getDiscoveryInfo } from '../../templates/getDiscoveryInfo'
 import { safeGetImplementation } from '../../templates/utils'
 
 const discovery = new ProjectDiscovery('phala')
@@ -102,6 +103,7 @@ export const phala: ScalingProject = {
     ],
   },
   config: {
+    associatedTokens: ['PHA'],
     activityConfig: {
       type: 'block',
       startBlock: 1,
@@ -350,4 +352,5 @@ export const phala: ScalingProject = {
       type: 'general',
     },
   ],
+  discoveryInfo: getDiscoveryInfo([discovery]),
 }
