@@ -1,13 +1,13 @@
 import type { DataAvailabilityRecord } from '@l2beat/database'
 import { UnixTime } from '@l2beat/shared-pure'
-import { z } from 'zod'
+import { v } from '@l2beat/validate'
 import { env } from '~/env'
 import { getDb } from '~/server/database'
 import { getRangeWithMax } from '~/utils/range/range'
 import { rangeToDays } from '~/utils/range/rangeToDays'
 import { CostsTimeRange } from '../../scaling/costs/utils/range'
 import { generateTimestamps } from '../../utils/generateTimestamps'
-import { DaThroughputTimeRange } from './utils/range'
+import { DaThroughputTimeRange, rangeToResolution } from './utils/range'
 
 export type ProjectDaThroughputChartData = {
   chart: ProjectDaThroughputDataPoint[]
@@ -15,11 +15,11 @@ export type ProjectDaThroughputChartData = {
 }
 export type ProjectDaThroughputDataPoint = [timestamp: number, value: number]
 
-export const ProjectDaThroughputChartParams = z.object({
-  range: DaThroughputTimeRange.or(CostsTimeRange),
-  projectId: z.string(),
+export const ProjectDaThroughputChartParams = v.object({
+  range: v.union([DaThroughputTimeRange, CostsTimeRange]),
+  projectId: v.string(),
 })
-export type ProjectDaThroughputChartParams = z.infer<
+export type ProjectDaThroughputChartParams = v.infer<
   typeof ProjectDaThroughputChartParams
 >
 
@@ -31,18 +31,26 @@ export async function getProjectDaThroughputChart(
   }
 
   const db = getDb()
-  const [from, to] = getRangeWithMax(params.range, 'daily')
-  const throughput = await db.dataAvailability2.getByProjectIdsAndTimeRange(
+  const resolution = rangeToResolution(params.range)
+  const [from, to] = getRangeWithMax(params.range, resolution, {
+    now: UnixTime.toStartOf(UnixTime.now(), 'hour') - UnixTime.HOUR,
+  })
+  const throughput = await db.dataAvailability.getByProjectIdsAndTimeRange(
     [params.projectId],
     [from, to],
   )
   if (throughput.length === 0) {
     return undefined
   }
-  const { grouped, minTimestamp, maxTimestamp } =
-    groupByTimestampAndProjectId(throughput)
+  const { grouped, minTimestamp, maxTimestamp } = groupByTimestampAndProjectId(
+    throughput,
+    resolution,
+  )
 
-  const timestamps = generateTimestamps([minTimestamp, maxTimestamp], 'daily')
+  const timestamps = generateTimestamps(
+    [minTimestamp, maxTimestamp],
+    resolution,
+  )
   return {
     chart: timestamps.map((timestamp) => {
       return [timestamp, grouped[timestamp] ?? 0]
@@ -51,12 +59,22 @@ export async function getProjectDaThroughputChart(
   }
 }
 
-function groupByTimestampAndProjectId(records: DataAvailabilityRecord[]) {
+function groupByTimestampAndProjectId(
+  records: DataAvailabilityRecord[],
+  resolution: 'hourly' | 'sixHourly' | 'daily',
+) {
   let minTimestamp = Infinity
   let maxTimestamp = -Infinity
   const result: Record<number, number> = {}
   for (const record of records) {
-    const timestamp = UnixTime.toStartOf(record.timestamp, 'day')
+    const timestamp = UnixTime.toStartOf(
+      record.timestamp,
+      resolution === 'daily'
+        ? 'day'
+        : resolution === 'sixHourly'
+          ? 'six hours'
+          : 'hour',
+    )
     const value = record.totalSize
     if (!result[timestamp]) {
       result[timestamp] = Number(value)

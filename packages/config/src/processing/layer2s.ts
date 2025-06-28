@@ -30,6 +30,7 @@ import { brine } from '../projects/brine/brine'
 import { camp } from '../projects/camp/camp'
 import { canvasconnect } from '../projects/canvasconnect/canvasconnect'
 import { capx } from '../projects/capx/capx'
+import { cartesiprthoneypot } from '../projects/cartesi-prt-honeypot/cartesi-prt-honeypot'
 import { celo } from '../projects/celo/celo'
 import { corn } from '../projects/corn/corn'
 import { coti } from '../projects/coti/coti'
@@ -85,6 +86,7 @@ import { ink } from '../projects/ink/ink'
 import { intmax } from '../projects/intmax/intmax'
 import { kakarotzkevm } from '../projects/kakarotzkevm/kakarotzkevm'
 import { karak } from '../projects/karak/karak'
+import { katana } from '../projects/katana/katana'
 import { kinto } from '../projects/kinto/kinto'
 import { koi } from '../projects/koi/koi'
 import { kontos } from '../projects/kontos/kontos'
@@ -120,6 +122,7 @@ import { move } from '../projects/move/move'
 import { myria } from '../projects/myria/myria'
 import { myshell } from '../projects/myshell/myshell'
 import { nal } from '../projects/nal/nal'
+import { namechain } from '../projects/namechain/namechain'
 import { network3 } from '../projects/network3/network3'
 import { neva } from '../projects/neva/neva'
 import { nil } from '../projects/nil/nil'
@@ -257,6 +260,7 @@ export const layer2s: ScalingProject[] = [
   camp,
   canvasconnect,
   capx,
+  cartesiprthoneypot,
   celo,
   corn,
   coti,
@@ -311,6 +315,7 @@ export const layer2s: ScalingProject[] = [
   intmax,
   kakarotzkevm,
   karak,
+  katana,
   kinto,
   koi,
   kontos,
@@ -346,6 +351,7 @@ export const layer2s: ScalingProject[] = [
   myria,
   myshell,
   nal,
+  namechain,
   network3,
   neva,
   nil,

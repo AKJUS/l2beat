@@ -11,9 +11,9 @@ import {
 } from '@l2beat/discovery'
 import {
   assert,
+  ChainSpecificAddress,
   EthereumAddress,
   type LegacyTokenBridgedUsing,
-  PrefixedEthereumAddress,
   UnixTime,
   notUndefined,
 } from '@l2beat/shared-pure'
@@ -63,6 +63,10 @@ export class ProjectDiscovery {
       ),
     ]
     this.permissionRegistry = new PermissionsFromDiscovery(this)
+  }
+
+  get blockNumber(): number {
+    return this.discoveries.reduce((min, d) => Math.max(min, d.blockNumber), 0)
   }
 
   getName(address: EthereumAddress): string {
@@ -290,7 +294,7 @@ export class ProjectDiscovery {
     }
 
     const contract = identifier.includes(':')
-      ? this.getContractByPrefixedAddress(PrefixedEthereumAddress(identifier))
+      ? this.getContractByChainSpecificAddress(ChainSpecificAddress(identifier))
       : this.getContractByAddress(EthereumAddress(identifier))
     assert(
       contract,
@@ -309,7 +313,7 @@ export class ProjectDiscovery {
     }
 
     const contract = identifier.includes(':')
-      ? this.getContractByPrefixedAddress(PrefixedEthereumAddress(identifier))
+      ? this.getContractByChainSpecificAddress(ChainSpecificAddress(identifier))
       : this.getContractByAddress(EthereumAddress(identifier))
     return contract !== undefined
   }
@@ -577,8 +581,8 @@ export class ProjectDiscovery {
     return contracts.find((contract) => contract.address === address)
   }
 
-  getContractByPrefixedAddress(
-    address: PrefixedEthereumAddress,
+  getContractByChainSpecificAddress(
+    address: ChainSpecificAddress,
   ): EntryParameters | undefined {
     const contracts = this.getPrefixedContracts()
     return contracts[address]
@@ -595,10 +599,10 @@ export class ProjectDiscovery {
     )
   }
 
-  getEntryByPrefixedAddress(
-    prefixedAddress: PrefixedEthereumAddress,
+  getEntryByChainSpecificAddress(
+    chainSpecificAddress: ChainSpecificAddress,
   ): EntryParameters | undefined {
-    const [chain, address] = prefixedAddress.toString().split(':')
+    const [chain, address] = chainSpecificAddress.toString().split(':')
     const entries = this.discoveries
       .filter((discovery) => discovery.chain === chain)
       .flatMap((discovery) => discovery.entries)
@@ -630,20 +634,20 @@ export class ProjectDiscovery {
     return this.discoveries.flatMap((discovery) => discovery.entries)
   }
 
-  getPrefixedContracts(): { [prefixedAddress: string]: EntryParameters } {
-    const result: { [prefixedAddress: string]: EntryParameters } = {}
+  getPrefixedContracts(): { [chainSpecificAddress: string]: EntryParameters } {
+    const result: { [chainSpecificAddress: string]: EntryParameters } = {}
     this.discoveries.forEach((discovery) => {
       discovery.entries.forEach((e) => {
         if (e.type === 'Contract') {
-          const prefixedAddress = PrefixedEthereumAddress(
+          const chainSpecificAddress = ChainSpecificAddress(
             `${discovery.chain}:${e.address}`,
           )
-          if (result[prefixedAddress] !== undefined) {
+          if (result[chainSpecificAddress] !== undefined) {
             throw new Error(
-              `Duplicate contract address entry: ${prefixedAddress}`,
+              `Duplicate contract address entry: ${chainSpecificAddress}`,
             )
           }
-          result[prefixedAddress] = e
+          result[chainSpecificAddress] = e
         }
       })
     })
@@ -664,6 +668,17 @@ export class ProjectDiscovery {
 
   getContractsAndEoas(): EntryParameters[] {
     return [...this.getContracts(), ...this.getEoas()]
+  }
+
+  getTopLevelAddresses(): EthereumAddress[] {
+    const contracts = this.getContracts()
+    const implementations = contracts.flatMap((contract) =>
+      get$Implementations(contract.values),
+    )
+
+    const contractsAddresses = contracts.map((e) => e.address)
+    const eoasAddresses = this.getEoas().map((e) => e.address)
+    return [...contractsAddresses, ...implementations, ...eoasAddresses]
   }
 
   getPermissionsByRole(
@@ -734,7 +749,7 @@ export class ProjectDiscovery {
           .map((p) =>
             this.formatViaPath(
               {
-                address: PrefixedEthereumAddress(`${this.chain}:${c.address}`),
+                address: ChainSpecificAddress(`${this.chain}:${c.address}`),
                 condition: p.condition,
                 delay: p.delay,
               },
@@ -773,7 +788,7 @@ export class ProjectDiscovery {
     skipName: boolean = false,
   ): string {
     const name =
-      this.getContractByPrefixedAddress(path.address)?.name ??
+      this.getContractByChainSpecificAddress(path.address)?.name ??
       path.address.toString()
 
     const result = skipName ? [] : [name]
@@ -822,7 +837,8 @@ export class ProjectDiscovery {
     const priority = permissions.reduce((acc, permission) => {
       return (
         acc +
-        (this.getEntryByPrefixedAddress(permission)?.category?.priority ?? 0)
+        (this.getEntryByChainSpecificAddress(permission)?.category?.priority ??
+          0)
       )
     }, 0)
 
