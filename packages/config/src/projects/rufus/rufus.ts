@@ -23,7 +23,7 @@ export const rufus: ScalingProject = underReviewL2({
     purposes: ['Gaming'],
     links: {
       websites: ['https://dogelonmars.com/'],
-      apps: ['https://rufus.bridge.caldera.xyz/'],
+      bridges: ['https://rufus.bridge.caldera.xyz/'],
       explorers: ['https://rufus.calderaexplorer.xyz/'],
       socialMedia: [
         'https://x.com/dogelonmars',
@@ -37,6 +37,7 @@ export const rufus: ScalingProject = underReviewL2({
   associatedTokens: ['ELON'],
   chainConfig: {
     name: 'rufus',
+    gasTokens: ['ELON'],
     chainId: 2420,
     apis: [
       {

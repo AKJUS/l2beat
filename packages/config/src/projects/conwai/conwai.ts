@@ -25,7 +25,7 @@ export const conwai: ScalingProject = underReviewL3({
     links: {
       websites: ['https://conwai.net'],
       documentation: ['https://conwai.net/docs'],
-      apps: ['https://conwai.bridge.caldera.xyz/'],
+      bridges: ['https://conwai.bridge.caldera.xyz/'],
       explorers: ['https://conwai.calderaexplorer.xyz/'],
       socialMedia: [
         'https://twitter.com/conwainet',
@@ -39,6 +39,7 @@ export const conwai: ScalingProject = underReviewL3({
   },
   chainConfig: {
     name: 'conwai',
+    gasTokens: ['CNW'],
     chainId: 668668,
     apis: [
       {

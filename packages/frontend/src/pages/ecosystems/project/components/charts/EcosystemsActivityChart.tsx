@@ -57,7 +57,6 @@ export function EcosystemsActivityChart({
       type: 'projects',
       projectIds: entries.map((project) => project.id),
     },
-    previewRecategorisation: false,
   })
 
   const chartMeta = useMemo(() => {
@@ -123,9 +122,6 @@ export function EcosystemsActivityChart({
             data: chartData,
             isLoading,
             yAxis: {
-              tick: {
-                width: 100,
-              },
               scale: 'lin',
               unit: ' UOPS',
             },

@@ -25,7 +25,7 @@ export const bitlazer: ScalingProject = underReviewL3({
     purposes: ['Bitcoin DApps'],
     links: {
       websites: ['https://bitlazer.io/'],
-      apps: [
+      bridges: [
         'https://bitlazer.bridge.caldera.xyz/',
         'https://bitlazer.io/bridge',
       ],
@@ -36,6 +36,7 @@ export const bitlazer: ScalingProject = underReviewL3({
   },
   chainConfig: {
     name: 'bitlazer',
+    gasTokens: ['lzrBTC'],
     chainId: 14235,
     apis: [
       {

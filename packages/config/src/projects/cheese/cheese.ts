@@ -24,7 +24,7 @@ export const cheese: ScalingProject = underReviewL3({
     purposes: ['Universal'],
     links: {
       websites: ['https://docs.cheesechain.xyz/'],
-      apps: [
+      bridges: [
         'https://cheesechain.bridge.caldera.xyz/',
         'https://bridge.cheesechain.xyz/',
       ],
@@ -35,6 +35,12 @@ export const cheese: ScalingProject = underReviewL3({
         'https://t.me/cheesegateway',
       ],
     },
+  },
+  chainConfig: {
+    name: 'cheese',
+    chainId: undefined,
+    gasTokens: ['CHEESE'],
+    apis: [],
   },
   ecosystemInfo: {
     id: ProjectId('arbitrum-orbit'),

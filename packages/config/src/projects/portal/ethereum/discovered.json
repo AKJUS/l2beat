@@ -2,7 +2,7 @@
   "name": "portal",
   "chain": "ethereum",
   "blockNumber": 20089055,
-  "configHash": "0xec86a3cc31e50a75e65af371faf9d213d3b32b4b5a954d2e0751141993955623",
+  "configHash": "0x5683bd095b1934869a68d756f957533c6a8c374d5cd8a7f595ba26f405a51008",
   "entries": [
     {
       "address": "0x000aC0076727b35FBea2dAc28fEE5cCB0fEA768e",
@@ -213,7 +213,7 @@
       "receivedPermissions": [
         {
           "permission": "upgrade",
-          "from": "ethereum:0x7A0a53847776f7e94Cc35742971aCb2217b0Db81",
+          "from": "eth:0x7A0a53847776f7e94Cc35742971aCb2217b0Db81",
           "role": "admin"
         }
       ]
@@ -915,5 +915,5 @@
     ]
   },
   "usedTemplates": {},
-  "permissionsConfigHash": "0x29c6fec5f8504a770b8c859e31bc46b98715605c4c82c5b49c40dfb17357dbc4"
+  "permissionsConfigHash": "0x22aa97a07bfef353bfac6420adbe44c97f3a10bab1483942215e16ea4d40d987"
 }

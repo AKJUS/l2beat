@@ -107,7 +107,7 @@ export const arbitrum: ScalingProject = orbitStackL2({
     description: `Arbitrum One is a general-purpose Optimistic Rollup built by Offchain Labs and governed by the Arbitrum DAO.`,
     links: {
       websites: ['https://arbitrum.io/', 'https://arbitrum.foundation/'],
-      apps: ['https://bridge.arbitrum.io'],
+      bridges: ['https://bridge.arbitrum.io'],
       documentation: [
         'https://docs.arbitrum.io',
         'https://docs.arbitrum.foundation/',
@@ -115,6 +115,7 @@ export const arbitrum: ScalingProject = orbitStackL2({
       explorers: [
         'https://arbiscan.io',
         'https://explorer.arbitrum.io/',
+        'https://arbitrum.blockscout.com/',
         'https://arbitrum.l2scan.co/',
       ],
       repositories: [
@@ -206,6 +207,7 @@ export const arbitrum: ScalingProject = orbitStackL2({
       tokens: '*',
       ...ESCROW.CANONICAL_EXTERNAL,
       excludedTokens: ['USDT'], // upgraded to USDT0 - tracked on L2
+      premintedTokens: ['SQD'],
       description:
         'Main entry point for users depositing ERC20 tokens that require minting custom tokens on L2.',
       ...upgradeExecutorUpgradeability,
@@ -222,10 +224,10 @@ export const arbitrum: ScalingProject = orbitStackL2({
     }),
     discovery.getEscrowDetails({
       address: EthereumAddress('0xA10c7CE4b876998858b1a9E12b10092229539400'),
-      tokens: ['DAI'],
+      tokens: ['DAI', 'USDS', 'sUSDS'],
       ...ESCROW.CANONICAL_EXTERNAL,
       description:
-        'DAI Vault for custom DAI Gateway. Fully controlled by MakerDAO governance.',
+        'Maker/Sky-controlled vault for DAI, USDS and sUSDS bridged with canonical messaging.',
     }),
     discovery.getEscrowDetails({
       address: EthereumAddress('0x0F25c1DC2a9922304f2eac71DCa9B07E310e8E5a'),
@@ -279,11 +281,11 @@ export const arbitrum: ScalingProject = orbitStackL2({
         stateRootsPostedToL1: true,
         dataAvailabilityOnL1: true,
         rollupNodeSourceAvailable: true,
+        stateVerificationOnL1: true,
+        fraudProofSystemAtLeast5Outsiders: true,
       },
       stage1: {
         principle: true,
-        stateVerificationOnL1: true,
-        fraudProofSystemAtLeast5Outsiders: true,
         usersHave7DaysToExit: true,
         usersCanExitWithoutCooperation: true,
         securityCouncilProperlySetUp: true,
@@ -316,6 +318,12 @@ export const arbitrum: ScalingProject = orbitStackL2({
     ],
   },
   milestones: [
+    {
+      title: 'Timeboost transaction ordering policy introduced',
+      url: 'https://www.tally.xyz/gov/arbitrum/proposal/14881197137069494959448952699217598923721993392617887469969318742509097999570?govId=eip155:42161:0xf07DeD9dC292157749B6Fd268E37DF6EA38395B9',
+      date: '2025-04-29T00:00:00Z',
+      type: 'general',
+    },
     {
       title: 'BoLD, permissionless proof system, deployed',
       url: 'https://x.com/arbitrum/status/1889710151332245837',

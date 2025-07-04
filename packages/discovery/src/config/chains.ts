@@ -188,8 +188,8 @@ export const chains: ChainConfig[] = [
     shortName: 'mantle',
     multicall: getMulticall3Config(304717),
     explorer: {
-      type: 'routescan',
-      url: 'https://api.routescan.io/v2/network/mainnet/evm/5000/etherscan/api',
+      type: 'blockscout',
+      url: 'https://explorer.mantle.xyz/api',
     },
   },
   {
@@ -306,6 +306,16 @@ export const chains: ChainConfig[] = [
     explorer: {
       type: 'sourcify',
       chainId: 48900,
+    },
+  },
+  {
+    name: 'katana',
+    chainId: 747474,
+    shortName: 'katana',
+    multicall: undefined,
+    explorer: {
+      type: 'blockscout',
+      url: 'https://explorer.katanarpc.com/api',
     },
   },
 ] as const satisfies ChainConfig[]
