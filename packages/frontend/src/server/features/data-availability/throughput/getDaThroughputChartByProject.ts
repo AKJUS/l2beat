@@ -1,27 +1,27 @@
 import type { Project } from '@l2beat/config'
-import type { DataAvailabilityRecord2 } from '@l2beat/database'
+import type { DataAvailabilityRecord } from '@l2beat/database'
 import { assert, UnixTime } from '@l2beat/shared-pure'
+import { v } from '@l2beat/validate'
 import partition from 'lodash/partition'
-import { z } from 'zod'
 import { env } from '~/env'
 import { getDb } from '~/server/database'
 import { ps } from '~/server/projects'
 import { getRangeWithMax } from '~/utils/range/range'
 import { rangeToDays } from '~/utils/range/rangeToDays'
 import { generateTimestamps } from '../../utils/generateTimestamps'
-import { DaThroughputTimeRange } from './utils/range'
-import { sumByDayAndProject } from './utils/sumByDayAndProject'
+import { DaThroughputTimeRange, rangeToResolution } from './utils/range'
+import { sumByResolutionAndProject } from './utils/sumByResolutionAndProject'
 
 export type DaThroughputChartDataByChart = [
   timestamp: number,
   values: Record<string, number>,
 ][]
 
-export const DaThroughputChartByProjectParams = z.object({
+export const DaThroughputChartByProjectParams = v.object({
   range: DaThroughputTimeRange,
-  daLayer: z.string(),
+  daLayer: v.string(),
 })
-export type DaThroughputChartByProjectParams = z.infer<
+export type DaThroughputChartByProjectParams = v.infer<
   typeof DaThroughputChartByProjectParams
 >
 
@@ -38,39 +38,53 @@ const getDaThroughputChartByProjectData = async (
   params: DaThroughputChartByProjectParams,
 ): Promise<DaThroughputChartDataByChart> => {
   const db = getDb()
-  const [from, to] = getRangeWithMax(params.range, 'daily')
+  const resolution = rangeToResolution({ type: params.range })
+  const [from, to] = getRangeWithMax({ type: params.range }, resolution, {
+    now: UnixTime.toStartOf(UnixTime.now(), 'hour') - UnixTime.HOUR,
+  })
   const [throughput, allProjects] = await Promise.all([
-    db.dataAvailability2.getByDaLayersAndTimeRange(
-      [params.daLayer],
-      [from, to],
-    ),
+    db.dataAvailability.getByDaLayersAndTimeRange([params.daLayer], [from, to]),
     ps.getProjects({}),
   ])
   if (throughput.length === 0) {
     return []
   }
-  const { grouped, minTimestamp, maxTimestamp } = groupByTimestampAndProjectId(
+  const { grouped, minTimestamp } = groupByTimestampAndProjectId(
     throughput,
     allProjects,
+    resolution,
   )
 
-  const timestamps = generateTimestamps([minTimestamp, maxTimestamp], 'daily')
+  const chartAdjustedTo =
+    resolution === 'hourly'
+      ? to - UnixTime.HOUR
+      : resolution === 'sixHourly'
+        ? to - UnixTime.HOUR * 6
+        : to - UnixTime.DAY
+
+  const timestamps = generateTimestamps(
+    [minTimestamp, chartAdjustedTo],
+    resolution,
+  )
   return timestamps.map((timestamp) => [timestamp, grouped[timestamp] ?? {}])
 }
 
 function groupByTimestampAndProjectId(
-  records: DataAvailabilityRecord2[],
+  records: DataAvailabilityRecord[],
   allProjects: Project[],
+  resolution: 'hourly' | 'sixHourly' | 'daily',
 ) {
   let minTimestamp = Infinity
-  let maxTimestamp = -Infinity
   const result: Record<number, Record<string, number>> = {}
   const [daLayerRecords, projectRecords] = partition(
     records,
     (r) => r.daLayer === r.projectId,
   )
 
-  const summedProjectsByDay = sumByDayAndProject(projectRecords)
+  const summedProjectsByDay = sumByResolutionAndProject(
+    projectRecords,
+    resolution,
+  )
   for (const record of summedProjectsByDay) {
     const timestamp = record.timestamp
     const value = record.totalSize
@@ -81,11 +95,13 @@ function groupByTimestampAndProjectId(
       [project.name]: Number(value),
     }
     minTimestamp = Math.min(minTimestamp, timestamp)
-    maxTimestamp = Math.max(maxTimestamp, timestamp)
   }
 
   // Add the difference between the total size and the sum of the other projects as 'Unknown'
-  const summedDaLayerByDay = sumByDayAndProject(daLayerRecords)
+  const summedDaLayerByDay = sumByResolutionAndProject(
+    daLayerRecords,
+    resolution,
+  )
   for (const record of summedDaLayerByDay) {
     const timestamp = record.timestamp
     const value = record.totalSize
@@ -99,7 +115,6 @@ function groupByTimestampAndProjectId(
       ['Unknown']: Number(value) - restSummed,
     }
     minTimestamp = Math.min(minTimestamp, timestamp)
-    maxTimestamp = Math.max(maxTimestamp, timestamp)
   }
 
   return {
@@ -114,14 +129,13 @@ function groupByTimestampAndProjectId(
       ]),
     ),
     minTimestamp: UnixTime(minTimestamp),
-    maxTimestamp: UnixTime(maxTimestamp),
   }
 }
 
 function getMockDaThroughputChartByProjectData({
   range,
 }: DaThroughputChartByProjectParams): DaThroughputChartDataByChart {
-  const days = rangeToDays(range) ?? 730
+  const days = rangeToDays({ type: range }) ?? 730
   const to = UnixTime.toStartOf(UnixTime.now(), 'day')
   const from = to - days * UnixTime.DAY
 

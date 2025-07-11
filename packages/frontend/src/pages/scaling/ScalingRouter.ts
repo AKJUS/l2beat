@@ -1,5 +1,5 @@
+import { v } from '@l2beat/validate'
 import express from 'express'
-import { z } from 'zod'
 import type { ICache } from '~/server/cache/ICache'
 import type { RenderFunction } from '~/ssr/types'
 import type { Manifest } from '~/utils/Manifest'
@@ -8,7 +8,6 @@ import { getScalingActivityData } from './activity/getScalingActivityData'
 import { getScalingArchivedData } from './archived/getScalingArchivedData'
 import { getScalingCostsData } from './costs/getScalingCostsData'
 import { getScalingDataAvailabilityData } from './data-availability/getScalingDataAvailabilityData'
-import { getScalingFinalityData } from './finality/getScalingFinalityData'
 import { getScalingLivenessData } from './liveness/getScalingLivenessData'
 import { getScalingProjectData } from './project/getScalingProjectData'
 import { getScalingProjectTvsBreakdownData } from './project/tvs-breakdown/getScalingProjectTvsBreakdownData'
@@ -31,14 +30,24 @@ export function createScalingRouter(
   router.get('/scaling/summary', async (req, res) => {
     const data = await getScalingSummaryData(req, manifest, cache)
     const html = render(data, req.originalUrl)
-    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
-  })
-
-  router.get('/scaling/activity', async (req, res) => {
-    const data = await getScalingActivityData(req, manifest, cache)
-    const html = render(data, req.originalUrl)
     res.status(200).send(html)
   })
+
+  router.get(
+    '/scaling/activity',
+    validateRoute({
+      query: v.object({
+        tab: v
+          .enum(['rollups', 'validiumsAndOptimiums', 'others', 'notReviewed'])
+          .default('rollups'),
+      }),
+    }),
+    async (req, res) => {
+      const data = await getScalingActivityData(req, manifest, cache)
+      const html = render(data, req.originalUrl)
+      res.status(200).send(html)
+    },
+  )
 
   router.get('/scaling/risk', async (req, res) => {
     const data = await getScalingRiskData(req, manifest, cache)
@@ -46,11 +55,21 @@ export function createScalingRouter(
     res.status(200).send(html)
   })
 
-  router.get('/scaling/tvs', async (req, res) => {
-    const data = await getScalingTvsData(req, manifest, cache)
-    const html = render(data, req.originalUrl)
-    res.status(200).send(html)
-  })
+  router.get(
+    '/scaling/tvs',
+    validateRoute({
+      query: v.object({
+        tab: v
+          .enum(['rollups', 'validiumsAndOptimiums', 'others', 'notReviewed'])
+          .default('rollups'),
+      }),
+    }),
+    async (req, res) => {
+      const data = await getScalingTvsData(req, manifest, cache)
+      const html = render(data, req.originalUrl)
+      res.status(200).send(html)
+    },
+  )
 
   router.get('/scaling/data-availability', async (req, res) => {
     const data = await getScalingDataAvailabilityData(req, manifest, cache)
@@ -64,17 +83,19 @@ export function createScalingRouter(
     res.status(200).send(html)
   })
 
-  router.get('/scaling/finality', async (req, res) => {
-    const data = await getScalingFinalityData(req, manifest, cache)
-    const html = render(data, req.originalUrl)
-    res.status(200).send(html)
-  })
-
-  router.get('/scaling/costs', async (req, res) => {
-    const data = await getScalingCostsData(req, manifest, cache)
-    const html = render(data, req.originalUrl)
-    res.status(200).send(html)
-  })
+  router.get(
+    '/scaling/costs',
+    validateRoute({
+      query: v.object({
+        tab: v.enum(['rollups', 'others']).default('rollups'),
+      }),
+    }),
+    async (req, res) => {
+      const data = await getScalingCostsData(req, manifest, cache)
+      const html = render(data, req.originalUrl)
+      res.status(200).send(html)
+    },
+  )
 
   router.get('/scaling/archived', async (req, res) => {
     const data = await getScalingArchivedData(req, manifest, cache)
@@ -91,7 +112,7 @@ export function createScalingRouter(
   router.get(
     '/scaling/projects/:slug',
     validateRoute({
-      params: z.object({ slug: z.string() }),
+      params: v.object({ slug: v.string() }),
     }),
     async (req, res) => {
       const data = await cache.get(
@@ -114,7 +135,7 @@ export function createScalingRouter(
   router.get(
     '/scaling/projects/:slug/tvs-breakdown',
     validateRoute({
-      params: z.object({ slug: z.string() }),
+      params: v.object({ slug: v.string() }),
     }),
     async (req, res) => {
       const data = await cache.get(

@@ -36,7 +36,7 @@ export const sophon: ScalingProject = zkStackL2({
       'Sophon is a consumer-centric ecosystem on a ZK Stack Validium L2, designed to bring onchain benefits to everyday lifestyle and entertainment applications.',
     links: {
       websites: ['https://sophon.xyz/'],
-      apps: ['https://portal.sophon.xyz/', 'https://farm.sophon.xyz/'],
+      bridges: ['https://portal.sophon.xyz/', 'https://farm.sophon.xyz/'],
       documentation: ['https://docs.sophon.xyz/sophon'],
       explorers: ['https://explorer.sophon.xyz/'],
       repositories: ['https://github.com/sophon-org'],
@@ -152,7 +152,7 @@ export const sophon: ScalingProject = zkStackL2({
         },
         {
           title: 'Mailbox facet',
-          url: 'https://etherscan.io/address/0x26b9a55DaBab9A8e74815A9D6Cd7F74AC0d7215f#code#F1#L472',
+          url: 'https://etherscan.io/address/0x365D0ae3ECA13004daf2A4ba1501c01AaEbb4fec#code#F1#L472',
         },
         {
           title: 'TransactionFilterer',

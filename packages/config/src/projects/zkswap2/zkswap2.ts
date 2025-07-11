@@ -9,6 +9,7 @@ import {
 } from '../../common'
 import { ProjectDiscovery } from '../../discovery/ProjectDiscovery'
 import type { ScalingProject } from '../../internalTypes'
+import { getDiscoveryInfo } from '../../templates/getDiscoveryInfo'
 import { zkswap } from '../zkswap/zkswap'
 
 const discovery = new ProjectDiscovery('zkswap2')
@@ -27,12 +28,12 @@ export const zkswap2: ScalingProject = {
     description:
       'ZKSwap is a fork of ZKsync with added AMM functionality. Based on ZK Rollup technology, ZKSwap aims to execute the full functionality of Uniswap on Layer 2, but increase the TPS, and make transaction processing cheaper.',
     purposes: ['Payments', 'Exchange'],
-    stack: 'ZKsync Lite',
+    stacks: ['ZKsync Lite'],
     category: 'ZK Rollup',
 
     links: {
       websites: ['https://zks.org/'],
-      apps: ['https://zks.app'],
+      bridges: ['https://zks.app'],
       documentation: ['https://en.wiki.zks.org/'],
       explorers: ['https://zkswap.info'],
       repositories: ['https://github.com/l2labs/zkswap-contracts'],
@@ -121,4 +122,5 @@ export const zkswap2: ScalingProject = {
       ],
     },
   },
+  discoveryInfo: getDiscoveryInfo([discovery]),
 }

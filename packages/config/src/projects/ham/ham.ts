@@ -23,7 +23,7 @@ export const ham: ScalingProject = opStackL3({
       'Ham Chain is an OP stack Optimium L3 on Base enabling Tips and SocialFi on the Farcaster social network.',
     links: {
       websites: ['https://ham.fun/'],
-      apps: [
+      bridges: [
         'https://ham.bridge.caldera.xyz/',
         'https://ham.fun/bridge',
         'https://relay.link/ham',
@@ -53,7 +53,7 @@ export const ham: ScalingProject = opStackL3({
     apis: [
       {
         type: 'rpc',
-        url: 'https://rpc.ham.fun',
+        url: 'https://ham.calderachain.xyz/http',
         callsPerMinute: 1500,
       },
     ],

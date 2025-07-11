@@ -19,13 +19,16 @@ export const huddle01: ScalingProject = underReviewL3({
     name: 'Huddle01',
     slug: 'huddle01',
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     description:
       'Huddle01 is an Orbit stack L3 powering the dRTC protocol, a decentralized Real Time Communication Network operating an algorithmic prosumer marketplace for real-time data.',
     purposes: ['Information'],
     links: {
       websites: ['https://huddle01.com/'],
-      apps: ['https://huddle01.bridge.caldera.xyz/', 'https://huddle01.app/'],
+      bridges: [
+        'https://huddle01.bridge.caldera.xyz/',
+        'https://huddle01.app/',
+      ],
       documentation: ['https://docs.huddle01.com/docs'],
       explorers: ['https://huddle01.calderaexplorer.xyz/'],
       socialMedia: [
@@ -41,6 +44,7 @@ export const huddle01: ScalingProject = underReviewL3({
   chainConfig: {
     name: 'huddle01',
     chainId: 12323,
+    gasTokens: ['ETH'],
     apis: [
       {
         type: 'rpc',

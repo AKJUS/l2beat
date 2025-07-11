@@ -19,13 +19,13 @@ export const henez: ScalingProject = underReviewL3({
     name: 'Henez',
     slug: 'henez',
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     description:
       'Henez is an Orbit stack L3 with AnyTrust DA powering chain- and account-abstracted DeFi applications.',
     purposes: ['Universal'],
     links: {
       websites: ['https://henez.fi/'],
-      apps: ['https://henez.bridge.caldera.xyz/'],
+      bridges: ['https://henez.bridge.caldera.xyz/'],
       documentation: ['https://docs.henez.fi/'],
       explorers: ['https://henez.calderaexplorer.xyz/'],
       socialMedia: [
@@ -37,6 +37,7 @@ export const henez: ScalingProject = underReviewL3({
   },
   chainConfig: {
     name: 'henez',
+    gasTokens: ['ETH'],
     chainId: 91111,
     apis: [
       {

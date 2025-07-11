@@ -87,7 +87,7 @@ function Sidebar({
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
         <SheetContent
-          className="z-999 w-[--sidebar-width] border-none bg-background p-0 text-primary [&>button]:hidden"
+          className="z-999 w-(--sidebar-width) border-none bg-background p-0 text-primary [&>button]:hidden"
           style={
             {
               '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
@@ -112,10 +112,10 @@ function Sidebar({
   return (
     <div className="group hidden text-primary lg:block">
       {/* This is what handles the sidebar gap on desktop */}
-      <div className="relative w-[--sidebar-width] bg-transparent transition-[width] duration-200 ease-linear" />
+      <div className="relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear" />
       <div
         className={cn(
-          'fixed inset-y-0 left-0 z-10 hidden h-svh w-[--sidebar-width] duration-200 ease-linear md:flex',
+          'fixed inset-y-0 left-0 z-10 hidden h-svh w-(--sidebar-width) duration-200 ease-linear md:flex',
           className,
         )}
         {...props}
@@ -200,7 +200,8 @@ function SidebarGroupLink({
     <a
       data-active={isActive}
       className={cn(
-        'flex h-8 w-full items-center gap-2 overflow-hidden rounded-md p-1.5 text-left text-base outline-none ring-brand focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0',
+        'group flex h-8 w-full items-center gap-2 overflow-hidden rounded-md p-1.5 text-left text-base outline-none ring-brand focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0',
+        'data-[active=true]:text-brand',
         className,
       )}
       {...props}

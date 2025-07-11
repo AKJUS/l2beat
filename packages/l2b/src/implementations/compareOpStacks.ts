@@ -15,7 +15,10 @@ export async function analyseAllOpStackChains(
   paths: DiscoveryPaths,
 ): Promise<void> {
   const configReader = new ConfigReader(paths.discovery)
-  const allL2s = configReader.readAllProjectsForChain('ethereum')
+  const allL2s = configReader
+    .readAllDiscoveredProjects()
+    .filter((p) => p.chains.includes('ethereum'))
+    .map((p) => p.project)
 
   const opStackChains = [] as OpStackProject[]
 
@@ -26,7 +29,7 @@ export async function analyseAllOpStackChains(
       (obj) => obj.name === 'L2OutputOracle',
     )
     const optimismPortal = discovery.entries.find(
-      (obj) => obj.name === 'OptimismPortal',
+      (obj) => obj.name === 'OptimismPortal' || obj.name === 'OptimismPortal2',
     )
     const l1StandardBridge = discovery.entries.find(
       (obj) => obj.name === 'L1StandardBridge',

@@ -1,3 +1,202 @@
+Generated with discovered.json: 0xd86997022033aff04493095d01fa09b8ede0183b
+
+# Diff at Wed, 09 Jul 2025 15:14:49 GMT:
+
+- author: sekuba (<29250140+sekuba@users.noreply.github.com>)
+- comparing to: main@d05d4ec9af28b2df4e687d7b7676cddffcae6887 block: 22824293
+- current block number: 22882452
+
+## Description
+
+Update LZ Multisig to a custom multisig contract that allows offchain signing with multichain onchain execution.
+
+## Watched changes
+
+```diff
+    contract EndpointV2 (0x1a44076050125825900e736c501f859c50fE728c) {
+    +++ description: Its configuration and MessageLib to use is set for each OApp and destination by the OApp owner.
+      values.owner:
+-        "0xCDa8e3ADD00c95E5035617F970096118Ca2F4C92"
++        "0xBe010A7e3686FdF65E93344ab664D065A0B02478"
+    }
+```
+
+```diff
+    contract Treasury (0x5ebB3f2feaA15271101a927869B3A56837e73056) {
+    +++ description: None
+      values.owner:
+-        "0xCDa8e3ADD00c95E5035617F970096118Ca2F4C92"
++        "0xBe010A7e3686FdF65E93344ab664D065A0B02478"
+    }
+```
+
+```diff
+    contract ReadLib1002 (0x74F55Bc2a79A27A0bF1D1A35dB5d0Fc36b9FDB9D) {
+    +++ description: None
+      values.owner:
+-        "0xCDa8e3ADD00c95E5035617F970096118Ca2F4C92"
++        "0xBe010A7e3686FdF65E93344ab664D065A0B02478"
+    }
+```
+
+```diff
+    contract SendUln302 (0xbB2Ea70C9E858123480642Cf96acbcCE1372dCe1) {
+    +++ description: Each MessageLib is an immutable verification library that OApp owners can point their OApp's Endpoint to.
+      values.owner:
+-        "0xCDa8e3ADD00c95E5035617F970096118Ca2F4C92"
++        "0xBe010A7e3686FdF65E93344ab664D065A0B02478"
+    }
+```
+
+```diff
+    contract ReceiveUln302 (0xc02Ab410f0734EFa3F14628780e6e695156024C2) {
+    +++ description: Each MessageLib is an immutable verification library that OApp owners can point their OApp's Endpoint to.
+      values.owner:
+-        "0xCDa8e3ADD00c95E5035617F970096118Ca2F4C92"
++        "0xBe010A7e3686FdF65E93344ab664D065A0B02478"
+    }
+```
+
+```diff
+-   Status: DELETED
+    contract LayerZero Multisig (0xCDa8e3ADD00c95E5035617F970096118Ca2F4C92)
+    +++ description: None
+```
+
+```diff
++   Status: CREATED
+    contract LayerZero Multisig (0xBe010A7e3686FdF65E93344ab664D065A0B02478)
+    +++ description: Custom multisignature contract allowing offchain signing and execution on multiple target chains.
+```
+
+## Source code changes
+
+```diff
+.../LayerZero Multisig/GnosisSafe.sol => /dev/null |  953 -------------
+ .../GnosisSafeProxy.p.sol => /dev/null             |   35 -
+ .../ethereum/.flat/LayerZero Multisig.sol          | 1396 ++++++++++++++++++++
+ 3 files changed, 1396 insertions(+), 988 deletions(-)
+```
+
+Generated with discovered.json: 0xa2265993ccd24041051f822a54d6ae8b3d0bf427
+
+# Diff at Fri, 04 Jul 2025 12:19:23 GMT:
+
+- author: Mateusz Radomski (<radomski.main@protonmail.com>)
+- comparing to: main@1f56dc47fe915564d4555300304da4d3bcbc087f block: 22824293
+- current block number: 22824293
+
+## Description
+
+Discovery rerun on the same block number with only config-related changes.
+
+## Config/verification related changes
+
+Following changes come from updates made to the config file,
+or/and contracts becoming verified, not from differences found during
+discovery. Values are for block 22824293 (main branch discovery), not current.
+
+```diff
+    contract  (0x9bfAc7947FC1b64aA9F12b24EcD519DaEcEf3Ba5) {
+    +++ description: None
+      receivedPermissions.0.from:
+-        "ethereum:0xC03f31fD86a9077785b7bCf6598Ce3598Fa91113"
++        "eth:0xC03f31fD86a9077785b7bCf6598Ce3598Fa91113"
+    }
+```
+
+```diff
+    contract ProxyAdmin (0xa36797bA947b378AefE5f726Cd87766CD3c25Ee3) {
+    +++ description: None
+      receivedPermissions.0.from:
+-        "ethereum:0x173272739Bd7Aa6e4e214714048a9fE699453059"
++        "eth:0x173272739Bd7Aa6e4e214714048a9fE699453059"
+    }
+```
+
+Generated with discovered.json: 0x716d952ab868f74b377440e478644951ef6c83cb
+
+# Diff at Tue, 01 Jul 2025 12:09:18 GMT:
+
+- author: sekuba (<29250140+sekuba@users.noreply.github.com>)
+- comparing to: main@835b5bf291c209782da0924189d08305334497d4 block: 22666357
+- current block number: 22824293
+
+## Description
+
+Nethermind DVN now 1/4 (from 1/3).
+
+## Watched changes
+
+```diff
+    contract Nethermind Verifier (0xa59BA433ac34D2927232918Ef5B2eaAfcF130BA5) {
+    +++ description: None
+      values.signerSize:
+-        3
++        4
+    }
+```
+
+Generated with discovered.json: 0xf0dd2ce55073ec49480733619251a017c0f6a58d
+
+# Diff at Mon, 09 Jun 2025 10:36:22 GMT:
+
+- author: sekuba (<29250140+sekuba@users.noreply.github.com>)
+- comparing to: main@7cc006dadcc55e6cce3be3eb03d491835943fb43 block: 22593859
+- current block number: 22666357
+
+## Description
+
+config: add stargate pool shapes.
+
+## Config/verification related changes
+
+Following changes come from updates made to the config file,
+or/and contracts becoming verified, not from differences found during
+discovery. Values are for block 22593859 (main branch discovery), not current.
+
+```diff
+    contract StargatePoolNative (0x77b2043768d28E9C9aB44E1aBfC95944bcE57931) {
+    +++ description: None
+      template:
++        "stargate/StargatePoolNative"
+    }
+```
+
+```diff
+    contract StargatePoolMigratable (0x933597a323Eb81cAe705C5bC29985172fd5A3973) {
+    +++ description: None
+      template:
++        "stargate/StargatePoolMigratable"
+    }
+```
+
+```diff
+    contract StargatePoolUSDC (0xc026395860Db2d07ee33e05fE50ed7bD583189C7) {
+    +++ description: None
+      template:
++        "stargate/StargatePoolUSDC"
+    }
+```
+
+```diff
++   Status: CREATED
+    contract FeeLibV1 (0x6Dd69717B1194B81A92105B7e0F94cb40f68A3e3)
+    +++ description: None
+```
+
+```diff
++   Status: CREATED
+    contract Metis Token (0x9E32b13ce7f2E80A01932B42553652E053D6ed8e)
+    +++ description: Metis token contract.
+```
+
+```diff
++   Status: CREATED
+    contract LPToken (0xF14EEe033D8b00101aB147F87cB238a2d3E74940)
+    +++ description: None
+```
+
 Generated with discovered.json: 0x505f1804f955ad6ed50fb8ca934bcf81de25f3f0
 
 # Diff at Mon, 26 May 2025 15:50:38 GMT:

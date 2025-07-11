@@ -1,8 +1,8 @@
 import type { DiscoveryOutput, EntryParameters } from '@l2beat/discovery'
 import {
+  ChainSpecificAddress,
   EthereumAddress,
   Hash256,
-  PrefixedEthereumAddress,
 } from '@l2beat/shared-pure'
 
 export const contractStub: EntryParameters = {
@@ -13,8 +13,8 @@ export const contractStub: EntryParameters = {
   receivedPermissions: [
     {
       permission: 'sequence',
-      from: PrefixedEthereumAddress(
-        'ethereum:0x48d7A6bbc428bca019A560cF3e8EA5364395Aad3',
+      from: ChainSpecificAddress(
+        'eth:0x48d7A6bbc428bca019A560cF3e8EA5364395Aad3',
       ),
     },
   ],
@@ -81,8 +81,8 @@ export const discoveredJsonStub: DiscoveryOutput = {
       receivedPermissions: [
         {
           permission: 'validate',
-          from: PrefixedEthereumAddress(
-            'ethereum:0x48d7A6bbc428bca019A560cF3e8EA5364395Aad3',
+          from: ChainSpecificAddress(
+            'eth:0x48d7A6bbc428bca019A560cF3e8EA5364395Aad3',
           ),
         },
       ],
@@ -93,8 +93,8 @@ export const discoveredJsonStub: DiscoveryOutput = {
       receivedPermissions: [
         {
           permission: 'sequence',
-          from: PrefixedEthereumAddress(
-            'ethereum:0x48d7A6bbc428bca019A560cF3e8EA5364395Aad3',
+          from: ChainSpecificAddress(
+            'eth:0x48d7A6bbc428bca019A560cF3e8EA5364395Aad3',
           ),
         },
       ],

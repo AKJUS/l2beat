@@ -12,17 +12,16 @@ export const settlus: ScalingProject = opStackL2({
   capability: 'universal',
   addedAt: UnixTime(1737636288), // 2025-01-23T12:44:48+00:00
   additionalBadges: [BADGES.RaaS.Alchemy],
-  reasonsForBeingOther: [REASON_FOR_BEING_OTHER.NO_PROOFS],
+  reasonsForBeingOther: [REASON_FOR_BEING_OTHER.CLOSED_PROOFS],
   display: {
     name: 'Settlus',
     slug: 'settlus',
-    category: 'Optimistic Rollup',
-    stack: 'OP Stack',
+    stacks: ['OP Stack'],
     description:
       'Settlus is an OP stack L2 designed to provide transparent settlement system for the creator economy.',
     links: {
       websites: ['https://settlus.org/'],
-      apps: ['https://settlus-mainnet.bridge.alchemy.com/'],
+      bridges: ['https://settlus-mainnet.bridge.alchemy.com/'],
       explorers: ['https://mainnet.settlus.network/'],
       documentation: ['https://docs.settlus.org/'],
       socialMedia: [
@@ -30,14 +29,6 @@ export const settlus: ScalingProject = opStackL2({
         'https://github.com/settlus',
       ],
     },
-  },
-  finality: {
-    type: 'OPStack',
-    minTimestamp: genesisTimestamp,
-    genesisTimestamp: genesisTimestamp,
-    l2BlockTimeSeconds: 1,
-    lag: 0,
-    stateUpdate: 'disabled',
   },
   chainConfig: {
     name: 'settlus',

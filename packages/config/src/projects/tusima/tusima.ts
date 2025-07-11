@@ -1,4 +1,4 @@
-import { UnixTime } from '@l2beat/shared-pure'
+import { ProjectId, UnixTime } from '@l2beat/shared-pure'
 import type { ScalingProject } from '../../internalTypes'
 import { upcomingL2 } from '../../templates/upcoming'
 
@@ -13,10 +13,10 @@ export const tusima: ScalingProject = upcomingL2({
       'Tusima is an infrastructure that bridges Web3.0 and real-world business. It aims to be a consumer payment network for any asset.',
     purposes: ['Universal', 'Payments'],
     category: 'Validium',
-    stack: 'Agglayer CDK',
+    stacks: ['Agglayer CDK'],
     links: {
       websites: ['https://tusima.network/'],
-      apps: ['https://tusima.network/Galactic/Withdraw'],
+      bridges: ['https://tusima.network/Galactic/Withdraw'],
       documentation: ['https://docs.tusima.network/'],
       explorers: [],
       repositories: ['https://github.com/TusimaNetwork'],
@@ -27,5 +27,8 @@ export const tusima: ScalingProject = upcomingL2({
         'https://medium.com/@TusimaNetwork',
       ],
     },
+  },
+  ecosystemInfo: {
+    id: ProjectId('agglayer'),
   },
 })

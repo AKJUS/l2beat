@@ -1,4 +1,4 @@
-import { UnixTime } from '@l2beat/shared-pure'
+import { ProjectId, UnixTime } from '@l2beat/shared-pure'
 import type { ScalingProject } from '../../internalTypes'
 import { upcomingL2 } from '../../templates/upcoming'
 
@@ -12,10 +12,10 @@ export const moonveil: ScalingProject = upcomingL2({
     description: 'Moonveil is a gaming chain utilizing Polygon CDK technology.',
     purposes: ['Gaming'],
     category: 'Validium',
-    stack: 'Agglayer CDK',
+    stacks: ['Agglayer CDK'],
     links: {
       websites: ['https://moonveil.gg/'],
-      apps: ['https://moonveil.gg/AstrArk/'],
+      bridges: ['https://moonveil.gg/AstrArk/'],
       repositories: ['https://github.com/SwellNetwork'],
       socialMedia: [
         'https://x.com/Moonveil_Studio',
@@ -25,5 +25,8 @@ export const moonveil: ScalingProject = upcomingL2({
         'https://medium.com/@Moonveil_Studio',
       ],
     },
+  },
+  ecosystemInfo: {
+    id: ProjectId('agglayer'),
   },
 })

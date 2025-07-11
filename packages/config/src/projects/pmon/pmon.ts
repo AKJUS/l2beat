@@ -17,7 +17,7 @@ export const pmon: ScalingProject = underReviewL3({
   ],
   display: {
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     name: 'PMON Chain',
     slug: 'pmon',
     description:
@@ -25,7 +25,7 @@ export const pmon: ScalingProject = underReviewL3({
     purposes: ['Gaming', 'NFT'],
     links: {
       websites: ['https://protocolmonsterlabs.com/'],
-      apps: [
+      bridges: [
         'https://battle.polychainmonsters.com/',
         'https://bridge.arbitrum.io/?destinationChain=pmon-chain&sourceChain=arbitrum-one',
       ],

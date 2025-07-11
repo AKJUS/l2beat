@@ -1,4 +1,4 @@
-import { UnixTime } from '@l2beat/shared-pure'
+import { ProjectId, UnixTime } from '@l2beat/shared-pure'
 import type { ScalingProject } from '../../internalTypes'
 import { upcomingL2 } from '../../templates/upcoming'
 
@@ -13,10 +13,10 @@ export const creatorchain: ScalingProject = upcomingL2({
       'Creator is a Layer 2 blockchain built on the OP Stack. Creator is designed for speed, affordability, and scalability, it empowers developers with revenue-sharing smart contracts and incentivizes users with exclusive Phantom X NFTs that generate ongoing profits.',
     purposes: ['Universal', 'NFT'],
     category: 'Optimistic Rollup',
-    stack: 'OP Stack',
+    stacks: ['OP Stack'],
     links: {
       websites: ['https://creatorchain.io/'],
-      apps: ['https://bridge.creatorchain.io/'],
+      bridges: ['https://bridge.creatorchain.io/'],
       documentation: ['https://docs.creatorchain.io/'],
       explorers: ['https://explorer.creatorchain.io/'],
       socialMedia: [
@@ -27,5 +27,8 @@ export const creatorchain: ScalingProject = upcomingL2({
         'https://creatorchain.medium.com/',
       ],
     },
+  },
+  ecosystemInfo: {
+    id: ProjectId('superchain'),
   },
 })

@@ -1,8 +1,8 @@
 {
   "name": "lachain",
   "chain": "ethereum",
-  "blockNumber": 22593196,
-  "configHash": "0xc2779b58ddf6acb886beec911b1176f38911e3ea4c03cb23211eb8bcc382e859",
+  "blockNumber": 22896151,
+  "configHash": "0xeb009424cf8e98452697cffd9af7d8ca8355ec731987f0cd4da11b57af5bb720",
   "sharedModules": ["shared-zk-stack"],
   "entries": [
     {
@@ -80,7 +80,7 @@
       "receivedPermissions": [
         {
           "permission": "interact",
-          "from": "ethereum:0xc4F79BAb04664229eAEf3dBbc528Dd982df81EdD",
+          "from": "eth:0xc4F79BAb04664229eAEf3dBbc528Dd982df81EdD",
           "description": "set the conversion factor for gas token deposits.",
           "role": ".tokenMultiplierSetter"
         }
@@ -105,7 +105,7 @@
       "name": "zkVmDiamond",
       "address": "0x742A28e22277945BBAAa34810393bf6e8512576C",
       "type": "Contract",
-      "template": "shared-zk-stack/v26/Diamond",
+      "template": "shared-zk-stack/Diamond",
       "sourceHashes": [
         "0xc18e3ec7d4fda7be44236a2bff585089b85466b00d09a1c3a2529c604f99143b",
         "0xbc2380479529743c27e6ab96cdf08210319fadcbca0856cf50c6b1b54bf8437f"
@@ -292,7 +292,7 @@
           "0x72213dfe8CA61B0A782970dCFebFb877778f9119",
           "0xfa96A3Da88f201433911bEFf3Ecc434CB1222731"
         ],
-        "getFirstUnprocessedPriorityTx": 9,
+        "getFirstUnprocessedPriorityTx": 14,
         "getL2BootloaderBytecodeHash": "0x0100087fe7df1cf5616646f85bd5eebc8efe5d8deac4d85bea9b9aefd88803dd",
         "getL2DefaultAccountBytecodeHash": "0x0100050bf9baf9d08e5d3c037f8d8b486076de7e6dceb3f3fc0989ea2c99cd67",
         "getL2EvmEmulatorBytecodeHash": "0x01000bbb8116fe7bdf690c19740ea350375426cec23f4f1f69a12fdc58adc9ba",
@@ -301,20 +301,20 @@
         "getL2SystemContractsUpgradeTxHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
         "getPendingAdmin": "0x0000000000000000000000000000000000000000",
         "getPriorityQueueSize": 0,
-        "getPriorityTreeRoot": "0x316d3f9ce882404af410ed896ccb6005f8b26fdeaf9bf0a65edd5f46e22018d5",
+        "getPriorityTreeRoot": "0x1bad31b0a3ce1e1fd3ba54afe97565fa73a3225a2f61492c822e00315c77dd71",
         "getPriorityTreeStartIndex": 0,
         "getPriorityTxMaxGasLimit": 72000000,
         "getProtocolVersion": 115964116992,
         "getPubdataPricingMode": 0,
         "getSemverProtocolVersion": [0, 27, 0],
         "getSettlementLayer": "0x0000000000000000000000000000000000000000",
-        "getTotalBatchesCommitted": 22,
-        "getTotalBatchesExecuted": 22,
-        "getTotalBatchesVerified": 22,
-        "getTotalBlocksCommitted": 22,
-        "getTotalBlocksExecuted": 22,
-        "getTotalBlocksVerified": 22,
-        "getTotalPriorityTxs": 9,
+        "getTotalBatchesCommitted": 35,
+        "getTotalBatchesExecuted": 35,
+        "getTotalBatchesVerified": 35,
+        "getTotalBlocksCommitted": 35,
+        "getTotalBlocksExecuted": 35,
+        "getTotalBlocksVerified": 35,
+        "getTotalPriorityTxs": 14,
         "getTransactionFilterer": "0x0000000000000000000000000000000000000000",
         "getVerifier": "0x079004D9C534Ff1dC3414F5dB31B4a0a1F4fc9d0",
         "getVerifierParams": {
@@ -388,7 +388,7 @@
       "receivedPermissions": [
         {
           "permission": "interact",
-          "from": "ethereum:0x742A28e22277945BBAAa34810393bf6e8512576C",
+          "from": "eth:0x742A28e22277945BBAAa34810393bf6e8512576C",
           "description": "commit, prove, execute, revert batches directly in the main Diamond contract. This role is typically held by a proxying ValidatorTimelock.",
           "role": ".validators"
         }
@@ -427,18 +427,18 @@
       "receivedPermissions": [
         {
           "permission": "interact",
-          "from": "ethereum:0x742A28e22277945BBAAa34810393bf6e8512576C",
+          "from": "eth:0x742A28e22277945BBAAa34810393bf6e8512576C",
           "description": "manage fees, apply predefined upgrades, manage censorship through a TransactionFilterer, set DA mode, migrate the chain to whitelisted settlement layers (Chain Admin role).",
           "role": ".getAdmin",
           "via": [
-            { "address": "ethereum:0xc4F79BAb04664229eAEf3dBbc528Dd982df81EdD" }
+            { "address": "eth:0xc4F79BAb04664229eAEf3dBbc528Dd982df81EdD" }
           ]
         }
       ],
       "directlyReceivedPermissions": [
         {
           "permission": "act",
-          "from": "ethereum:0xc4F79BAb04664229eAEf3dBbc528Dd982df81EdD",
+          "from": "eth:0xc4F79BAb04664229eAEf3dBbc528Dd982df81EdD",
           "role": ".owner"
         }
       ],
@@ -462,7 +462,7 @@
         "getChainId": 1,
         "GnosisSafe_modules": [],
         "multisigThreshold": "4 of 7 (57%)",
-        "nonce": 5,
+        "nonce": 6,
         "VERSION": "1.4.1"
       },
       "implementationNames": {
@@ -508,7 +508,7 @@
       "receivedPermissions": [
         {
           "permission": "validateZkStack",
-          "from": "ethereum:0x8c0Bfc04AdA21fd496c55B8C50331f904306F564",
+          "from": "eth:0x8c0Bfc04AdA21fd496c55B8C50331f904306F564",
           "role": ".validatorsVTL"
         }
       ]
@@ -525,7 +525,7 @@
       "directlyReceivedPermissions": [
         {
           "permission": "interact",
-          "from": "ethereum:0x742A28e22277945BBAAa34810393bf6e8512576C",
+          "from": "eth:0x742A28e22277945BBAAa34810393bf6e8512576C",
           "description": "manage fees, apply predefined upgrades, manage censorship through a TransactionFilterer, set DA mode, migrate the chain to whitelisted settlement layers (Chain Admin role).",
           "role": ".getAdmin"
         }
@@ -539,7 +539,8 @@
         "tokenMultiplierSetter": "0x27251a0185F0354C7D5BF0aF5fAA1A384712C6bd",
         "upgradeTimestamps": [
           { "_protocolVersion": 27, "_upgradeTimestamp": 1748264400 },
-          { "_protocolVersion": 115964116992, "_upgradeTimestamp": 1748264400 }
+          { "_protocolVersion": 115964116992, "_upgradeTimestamp": 1748264400 },
+          { "_protocolVersion": 120259084288, "_upgradeTimestamp": 1752159600 }
         ]
       },
       "fieldMeta": {
@@ -559,7 +560,7 @@
       "receivedPermissions": [
         {
           "permission": "validateZkStack",
-          "from": "ethereum:0x8c0Bfc04AdA21fd496c55B8C50331f904306F564",
+          "from": "eth:0x8c0Bfc04AdA21fd496c55B8C50331f904306F564",
           "role": ".validatorsVTL"
         }
       ]
@@ -950,11 +951,11 @@
   "usedTemplates": {
     "GnosisSafe": "0x12db59bec64fa8de67bbeb6a6e913f6c5ff1598c0a5fba90282afaf08e2a748c",
     "shared-zk-stack/ChainAdmin": "0x8be9e939e27d818ead1d430f9f603f4143a5f3d809e6f287aa3d463e5a8f5b8b",
+    "shared-zk-stack/Diamond": "0xef3e05942848c1858400f0ce5ef0d9f3c4c7ef7aeade3b0ceaa604de56313624",
     "shared-zk-stack/DualVerifier": "0xa5872f4279977d125fbe7de800bcc56565d1b14b2acb9736ec9ef0be291ccc24",
     "shared-zk-stack/L1VerifierFflonk": "0xa5872f4279977d125fbe7de800bcc56565d1b14b2acb9736ec9ef0be291ccc24",
     "shared-zk-stack/L1VerifierPlonk": "0xa5872f4279977d125fbe7de800bcc56565d1b14b2acb9736ec9ef0be291ccc24",
-    "shared-zk-stack/v26/Diamond": "0xef3e05942848c1858400f0ce5ef0d9f3c4c7ef7aeade3b0ceaa604de56313624",
     "shared-zk-stack/ValidatorTimelock": "0xc605499cf1c033abb2a1ee7a146ab364bfcbc9722b13bea57f2def8905bb409f"
   },
-  "permissionsConfigHash": "0xb862dd432d96aef9f688a3e3e1a7b301d94969ba384cab6ab3d571992b6a0c21"
+  "permissionsConfigHash": "0x67095b8add11d28f2ccdc82f3a34e8ead771a243f2f72f3fa1df07e96536781a"
 }

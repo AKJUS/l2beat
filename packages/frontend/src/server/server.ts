@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import type { Logger } from '@l2beat/backend-tools'
 import compression from 'compression'
+import timeout from 'connect-timeout'
 import express from 'express'
 import sirv from 'sirv'
 import { createServerPageRouter } from '../pages/ServerPageRouter'
@@ -9,8 +10,9 @@ import type { RenderData } from '../ssr/types'
 import { type Manifest, manifest } from '../utils/Manifest'
 import { ErrorHandler } from './middlewares/ErrorHandler'
 import { MetricsMiddleware } from './middlewares/MetricsMiddleware'
-import { TimeoutHandler } from './middlewares/TimeoutHandler'
+import { SafeSendHandler } from './middlewares/SafeSendHandler'
 import { createApiRouter } from './routers/ApiRouter'
+import { createLegacyPathsRouter } from './routers/LegacyPathsRouter'
 import { createMigratedProjectsRouter } from './routers/MigratedProjectsRouter'
 import { createPlausibleRouter } from './routers/PlausibleRouter'
 import { createTrpcRouter } from './routers/TrpcRouter'
@@ -26,7 +28,6 @@ export function createServer(logger: Logger) {
   const app = express()
   if (isProduction) {
     app.use(compression())
-    // TODO: immutable cache
     app.use(
       '/static',
       sirv('./dist/static', { maxAge: 31536000, immutable: true }),
@@ -37,22 +38,26 @@ export function createServer(logger: Logger) {
     app.use('/', express.static('./static'))
   }
 
-  app.use(TimeoutHandler(appLogger))
-  app.use(ErrorHandler(appLogger))
+  app.use(timeout('25s'))
+  app.use(SafeSendHandler)
   app.use(MetricsMiddleware(appLogger))
 
   app.use('/', createMigratedProjectsRouter())
+  app.use('/', createLegacyPathsRouter())
   app.use('/api/trpc', createTrpcRouter())
   app.use('/', createServerPageRouter(manifest, renderToHtml))
   app.use('/', createApiRouter())
   app.use('/plausible', createPlausibleRouter())
 
-  const server = app.listen(port, () => {
+  if (isProduction) {
+    app.use(ErrorHandler(appLogger))
+  }
+
+  app.listen(port, () => {
     appLogger.info(`Started`, {
       port,
     })
   })
-  server.setTimeout(25000)
 }
 
 function renderToHtml(data: RenderData, url: string) {
@@ -61,7 +66,7 @@ function renderToHtml(data: RenderData, url: string) {
     Object.entries(process.env)
       .map(([key, value]) => {
         if (
-          !key.startsWith('NEXT_PUBLIC_') &&
+          !key.startsWith('CLIENT_SIDE_') &&
           key !== 'NODE_ENV' &&
           key !== 'DEPLOYMENT_ENV'
         ) {

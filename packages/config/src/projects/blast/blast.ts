@@ -21,7 +21,7 @@ export const blast: ScalingProject = opStackL2({
       'Blast is an EVM-compatible Optimistic Rollup supporting native yield. It invests funds deposited into the L1 bridge into various DeFi protocols transferring yield back to the L2.',
     links: {
       websites: ['https://blast.io/en'],
-      apps: ['https://blast.io/en/bridge'],
+      bridges: ['https://blast.io/en/bridge'],
       documentation: ['https://docs.blast.io/about-blast'],
       explorers: [
         'https://blastscan.io',
@@ -69,8 +69,8 @@ export const blast: ScalingProject = opStackL2({
         ...EXITS.FORCED_MESSAGING('all-messages'),
         references: [
           {
-            title: 'Forced withdrawal from an OP Stack blockchain',
-            url: 'https://stack.optimism.io/docs/security/forced-withdrawal/',
+            title: 'Forced transaction from an OP Stack blockchain',
+            url: 'https://docs.optimism.io/stack/transactions/forced-transaction',
           },
         ],
       },
@@ -94,15 +94,6 @@ export const blast: ScalingProject = opStackL2({
       { type: 'rpc', url: 'https://rpc.blast.io/', callsPerMinute: 1500 },
       { type: 'etherscan', chainId },
     ],
-  },
-  finality: {
-    type: 'OPStack',
-    // timestamp of the first blob tx
-    minTimestamp: UnixTime(1716846455),
-    l2BlockTimeSeconds: 2,
-    genesisTimestamp: UnixTime(1708809815),
-    lag: 0,
-    stateUpdate: 'disabled',
   },
   genesisTimestamp: UnixTime(1708825259), //First sequencer transaction
   nonTemplateEscrows: [

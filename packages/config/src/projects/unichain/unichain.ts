@@ -1,4 +1,4 @@
-import { EthereumAddress, ProjectId, UnixTime } from '@l2beat/shared-pure'
+import { EthereumAddress, UnixTime } from '@l2beat/shared-pure'
 import { DERIVATION, ESCROW, SOA } from '../../common'
 import { getStage } from '../../common/stages/getStage'
 import { ProjectDiscovery } from '../../discovery/ProjectDiscovery'
@@ -22,20 +22,17 @@ export const unichain: ScalingProject = opStackL2({
     description:
       'Unichain, a faster, cheaper L2 designed to be the home for DeFi and the home for multichain liquidity.',
     category: 'Optimistic Rollup',
-    stack: 'OP Stack',
+    stacks: ['OP Stack'],
     links: {
       websites: ['https://unichain.org/'],
-      apps: ['https://unichain.org/bridge'],
+      bridges: ['https://unichain.org/bridge'],
       documentation: ['https://docs.unichain.org/docs'],
-      explorers: ['https://uniscan.xyz/'],
+      explorers: ['https://uniscan.xyz/', 'https://unichain.blockscout.com/'],
       socialMedia: [
         'https://x.com/unichain',
         'https://discord.com/invite/uniswap',
       ],
     },
-  },
-  ecosystemInfo: {
-    id: ProjectId('superchain'),
   },
   hasSuperchainScUpgrades: true,
   scopeOfAssessment: {
@@ -55,11 +52,11 @@ export const unichain: ScalingProject = opStackL2({
         stateRootsPostedToL1: true,
         dataAvailabilityOnL1: true,
         rollupNodeSourceAvailable: true,
+        stateVerificationOnL1: true,
+        fraudProofSystemAtLeast5Outsiders: true,
       },
       stage1: {
         principle: false,
-        stateVerificationOnL1: true,
-        fraudProofSystemAtLeast5Outsiders: true,
         usersHave7DaysToExit: true,
         usersCanExitWithoutCooperation: true,
         securityCouncilProperlySetUp: true,
@@ -76,14 +73,6 @@ export const unichain: ScalingProject = opStackL2({
     },
   ),
   associatedTokens: ['UNI'],
-  finality: {
-    type: 'OPStack',
-    minTimestamp: genesisTimestamp,
-    genesisTimestamp: genesisTimestamp,
-    l2BlockTimeSeconds: 1,
-    lag: 0,
-    stateUpdate: 'disabled',
-  },
   nonTemplateExcludedTokens: ['USDC'],
   genesisTimestamp,
   stateDerivation: DERIVATION.OPSTACK('UNICHAIN'),
@@ -95,6 +84,13 @@ export const unichain: ScalingProject = opStackL2({
       ...ESCROW.CANONICAL_EXTERNAL,
       description:
         'wstETH Vault for custom wstETH Gateway. Fully controlled by Lido governance.',
+    }),
+    discovery.getEscrowDetails({
+      address: EthereumAddress('0x1196F688C585D3E5C895Ef8954FFB0dCDAfc566A'),
+      tokens: ['USDS', 'sUSDS'],
+      ...ESCROW.CANONICAL_EXTERNAL,
+      description:
+        'Maker/Sky-controlled vault for USDS and sUSDS bridged with canonical messaging.',
     }),
   ],
   chainConfig: {

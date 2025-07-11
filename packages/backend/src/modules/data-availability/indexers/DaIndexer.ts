@@ -1,7 +1,7 @@
 import type { DaBlob, DaProvider } from '@l2beat/shared'
 import { assert, UnixTime } from '@l2beat/shared-pure'
 import { Indexer } from '@l2beat/uif'
-import type { DaTrackingConfig } from '../../../config/Config'
+import type { BlockDaIndexedConfig } from '../../../config/Config'
 import { INDEXER_NAMES } from '../../../tools/uif/indexerIdentity'
 import { ManagedMultiIndexer } from '../../../tools/uif/multi/ManagedMultiIndexer'
 import type {
@@ -9,43 +9,37 @@ import type {
   ManagedMultiIndexerOptions,
   RemovalConfiguration,
 } from '../../../tools/uif/multi/types'
-import type { DaService } from '../../data-availability/services/DaService'
+import type { DaService } from '../services/DaService'
 
 export interface Dependencies
-  extends Omit<ManagedMultiIndexerOptions<DaTrackingConfig>, 'name'> {
+  extends Omit<ManagedMultiIndexerOptions<BlockDaIndexedConfig>, 'name'> {
   daService: DaService
   daProvider: DaProvider
   daLayer: string
   batchSize: number
 }
 
-export class DaIndexer extends ManagedMultiIndexer<DaTrackingConfig> {
-  configMapping: Map<string, DaTrackingConfig>
-
+export class DaIndexer extends ManagedMultiIndexer<BlockDaIndexedConfig> {
   constructor(private readonly $: Dependencies) {
     super({
       ...$,
-      name: INDEXER_NAMES.DA,
+      name: INDEXER_NAMES.DA2,
       tags: { tag: $.daLayer },
       updateRetryStrategy: Indexer.getInfiniteRetryStrategy(),
       configurationsTrimmingDisabled: true,
-      dataWipingAfterDeleteDisabled: true,
+      dataWipingAfterDeleteDisabled: false,
     })
 
     assert(
       $.configurations.every((c) => c.properties.daLayer === $.daLayer),
       `DaLayer mismatch detected in configurations`,
     )
-
-    this.configMapping = new Map(
-      $.configurations.map((c) => [c.id, c.properties]),
-    )
   }
 
   override async multiUpdate(
     from: number,
     to: number,
-    configurations: Configuration<DaTrackingConfig>[],
+    configurations: Configuration<BlockDaIndexedConfig>[],
   ) {
     const adjustedTo =
       from + this.$.batchSize < to ? from + this.$.batchSize : to
@@ -103,12 +97,12 @@ export class DaIndexer extends ManagedMultiIndexer<DaTrackingConfig> {
   private async getPreviousRecordsInBlobsRange(blobs: DaBlob[]) {
     const from = UnixTime.toStartOf(
       Math.min(...blobs.map((b) => b.blockTimestamp)),
-      'day',
+      'hour',
     )
 
     const to = UnixTime.toEndOf(
       Math.max(...blobs.map((b) => b.blockTimestamp)),
-      'day',
+      'hour',
     )
 
     return await this.$.db.dataAvailability.getForDaLayerInTimeRange(
@@ -118,9 +112,6 @@ export class DaIndexer extends ManagedMultiIndexer<DaTrackingConfig> {
     )
   }
 
-  // Assumptions:
-  // This indexer will never invalidate (Parent goes only forward, no reorg support)
-  // This indexer does not support trimming, if configuration has changed all data will be wiped
   override async removeData(
     configurations: RemovalConfiguration[],
   ): Promise<void> {
@@ -128,19 +119,11 @@ export class DaIndexer extends ManagedMultiIndexer<DaTrackingConfig> {
     assert(this.options.configurationsTrimmingDisabled)
 
     for (const c of configurations) {
-      const configuration = this.configMapping.get(c.id)
-
-      assert(configuration, `${c.id}: No configuration found`)
-
-      const deletedRecords = await this.$.db.dataAvailability.deleteByProject(
-        configuration.projectId,
-        configuration.daLayer,
-      )
+      const deletedRecords =
+        await this.$.db.dataAvailability.deleteByConfigurationId(c.id)
 
       this.logger.info('Wiped DA records for configuration', {
         id: c.id,
-        project: configuration.projectId.toString(),
-        daLayer: configuration.daLayer,
         deletedRecords,
       })
     }

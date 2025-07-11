@@ -35,14 +35,14 @@ export function RegularDaProjectSummary({ project }: Props) {
 
   return (
     <FullPageHeader className="pt-8 pb-4 md:pt-12 md:pb-8">
-      <section id="summary" className="w-full">
+      <section id="summary" data-role="project-section" className="w-full">
         <ProjectHeader project={project} />
         {/* Details row */}
         <div className="mt-6 flex w-full flex-col gap-6 md:gap-8">
           {/* Links and stats */}
           <div className="flex flex-row items-end gap-10">
             <div className="w-full">
-              <div className="!mb-8 hidden md:flex">
+              <div className="mb-8! hidden md:flex">
                 <HorizontalSeparator className="max-md:-mx-4 max-md:w-screen" />
               </div>
               {project.archivedAt && (

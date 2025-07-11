@@ -10,7 +10,7 @@ import {
 } from '@l2beat/shared-pure'
 import { expect, mockFn, mockObject } from 'earl'
 import type {
-  DaTrackingConfig,
+  BlockDaIndexedConfig,
   DataAvailabilityTrackingConfig,
 } from '../../../config/Config'
 import { mockDatabase } from '../../../test/database'
@@ -27,7 +27,11 @@ const DA_LAYER = 'test-layer'
 describe(DaIndexer.name, () => {
   describe(DaIndexer.prototype.multiUpdate.name, () => {
     it('fetches blobs, generates records, saves metrics to DB', async () => {
-      const configurations = [config('project-a'), config('project-b')]
+      const mockInbox = EthereumAddress.random()
+      const configurations = [
+        config('project-a', mockInbox),
+        config('project-b'),
+      ]
       const blobs = [blob(100, 100_000), blob(200, 200_000)]
       const previousRecords = [record('project', 100, 100_000)]
       const generatedRecords = [record('project', 100, 400_000)]
@@ -50,13 +54,13 @@ describe(DaIndexer.name, () => {
       expect(daProvider.getBlobs).toHaveBeenOnlyCalledWith(DA_LAYER, 100, 150)
       expect(repository.getForDaLayerInTimeRange).toHaveBeenOnlyCalledWith(
         DA_LAYER,
-        UnixTime.toStartOf(100, 'day'),
-        UnixTime.toEndOf(200, 'day'),
+        UnixTime.toStartOf(100, 'hour'),
+        UnixTime.toEndOf(200, 'hour'),
       )
       expect(daService.generateRecords).toHaveBeenOnlyCalledWith(
         blobs,
         previousRecords,
-        configurations.map((c) => c.config),
+        configurations,
       )
 
       expect(repository.upsertMany).toHaveBeenOnlyCalledWith(generatedRecords)
@@ -121,16 +125,14 @@ describe(DaIndexer.name, () => {
         { id: createId('project-b'), from: -1, to: -1 }, // from & to are ignored
       ])
 
-      expect(repository.deleteByProject).toHaveBeenNthCalledWith(
+      expect(repository.deleteByConfigurationId).toHaveBeenNthCalledWith(
         1,
-        'project-a',
-        DA_LAYER,
+        createId('project-a'),
       )
 
-      expect(repository.deleteByProject).toHaveBeenNthCalledWith(
+      expect(repository.deleteByConfigurationId).toHaveBeenNthCalledWith(
         2,
-        'project-b',
-        DA_LAYER,
+        createId('project-b'),
       )
     })
   })
@@ -141,18 +143,18 @@ describe(DaIndexer.name, () => {
 })
 
 function toIndexerConfigurations(
-  configurations: { configurationId: string; config: DaTrackingConfig }[],
-): Configuration<DaTrackingConfig>[] {
+  configurations: BlockDaIndexedConfig[],
+): Configuration<BlockDaIndexedConfig>[] {
   return configurations.map((c) => ({
     id: c.configurationId,
-    minHeight: c.config.sinceBlock,
-    maxHeight: c.config.untilBlock ?? null,
-    properties: c.config,
+    minHeight: c.sinceBlock,
+    maxHeight: c.untilBlock ?? null,
+    properties: c,
   }))
 }
 
 function mockIndexer($: {
-  configurations?: DataAvailabilityTrackingConfig['projects']
+  configurations?: DataAvailabilityTrackingConfig['blockProjects']
   batchSize?: number
   indexerService?: IndexerService
   blobs?: DaBlob[]
@@ -160,7 +162,7 @@ function mockIndexer($: {
   generatedRecords?: DataAvailabilityRecord[]
 }) {
   const repository = mockObject<Database['dataAvailability']>({
-    deleteByProject: mockFn().resolvesTo({}),
+    deleteByConfigurationId: mockFn().resolvesTo({}),
     upsertMany: mockFn().resolvesTo(undefined),
     getForDaLayerInTimeRange: mockFn().resolvesTo($.previousRecords ?? []),
   })
@@ -176,9 +178,9 @@ function mockIndexer($: {
   const indexer = new DaIndexer({
     configurations: ($.configurations ?? [config('project-a')]).map((c) => ({
       id: c.configurationId,
-      minHeight: c.config.sinceBlock,
-      maxHeight: c.config.untilBlock ?? null,
-      properties: c.config,
+      minHeight: c.sinceBlock,
+      maxHeight: c.untilBlock ?? null,
+      properties: c,
     })),
     daProvider,
     daService,
@@ -195,20 +197,16 @@ function mockIndexer($: {
   return { repository, indexer, daService, daProvider }
 }
 
-function config(project: string): {
-  configurationId: string
-  config: DaTrackingConfig
-} {
+function config(project: string, inbox?: string): BlockDaIndexedConfig {
   return {
+    type: 'ethereum',
     configurationId: createId(project),
-    config: {
-      type: 'ethereum',
-      projectId: ProjectId(project),
-      daLayer: ProjectId(DA_LAYER),
-      inbox: EthereumAddress.ZERO,
-      sequencers: [],
-      sinceBlock: 1,
-    },
+    projectId: ProjectId(project),
+    daLayer: ProjectId(DA_LAYER),
+    inbox: inbox ?? EthereumAddress.random(),
+    sequencers: [],
+    sinceBlock: 1,
+    topics: inbox ? ['topic'] : [],
   }
 }
 
@@ -216,6 +214,7 @@ function blob(timestamp: number, size: number): DaBlob {
   return {
     daLayer: DA_LAYER,
     blockTimestamp: UnixTime(timestamp),
+    blockNumber: 1,
     size: BigInt(size),
     type: 'ethereum',
     inbox: '',
@@ -230,6 +229,7 @@ function record(
   size: number,
 ): DataAvailabilityRecord {
   return {
+    configurationId: createId(projectId),
     projectId,
     daLayer: DA_LAYER,
     timestamp: UnixTime(timestamp),

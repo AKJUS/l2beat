@@ -22,12 +22,12 @@ export const optimism: ScalingProject = opStackL2({
     slug: 'op-mainnet',
     stateValidationImage: 'opfp',
     category: 'Optimistic Rollup',
-    stack: 'OP Stack',
+    stacks: ['OP Stack'],
     description:
       'OP Mainnet is an EVM-equivalent Optimistic Rollup. It aims to be fast, simple, and secure.',
     links: {
       websites: ['https://optimism.io/'],
-      apps: ['https://app.optimism.io'],
+      bridges: ['https://app.optimism.io'],
       documentation: ['https://community.optimism.io'],
       explorers: [
         'https://optimistic.etherscan.io',
@@ -54,8 +54,9 @@ export const optimism: ScalingProject = opStackL2({
       address: EthereumAddress('0x467194771dAe2967Aef3ECbEDD3Bf9a310C76C65'),
       sinceTimestamp: UnixTime(1625675779),
       ...ESCROW.CANONICAL_EXTERNAL,
-      tokens: ['DAI'],
-      description: 'DAI Vault for custom DAI Gateway managed by MakerDAO.',
+      tokens: ['DAI', 'USDS', 'sUSDS'],
+      description:
+        'Maker/Sky-controlled vault for DAI, USDS and sUSDS bridged with canonical messaging.',
     }),
     discovery.getEscrowDetails({
       // current SNX bridge escrow
@@ -105,15 +106,6 @@ export const optimism: ScalingProject = opStackL2({
       sequencers: ['0x6887246668a3b87f54deb3b94ba47a6f63f32985'],
     },
   ],
-  finality: {
-    type: 'OPStack',
-    // timestamp of the first blob tx
-    minTimestamp: UnixTime(1710375155),
-    l2BlockTimeSeconds: 2,
-    genesisTimestamp: UnixTime(1686068903),
-    lag: 0,
-    stateUpdate: 'disabled',
-  },
   nonTemplateTrackedTxs: [
     {
       uses: [
@@ -198,9 +190,6 @@ export const optimism: ScalingProject = opStackL2({
       { type: 'blockscoutV2', url: 'https://optimism.blockscout.com/api/v2' },
     ],
   },
-  ecosystemInfo: {
-    id: ProjectId('superchain'),
-  },
   scopeOfAssessment: {
     inScope: [
       SOA.l1Contracts,
@@ -223,11 +212,11 @@ export const optimism: ScalingProject = opStackL2({
         stateRootsPostedToL1: true,
         dataAvailabilityOnL1: true,
         rollupNodeSourceAvailable: true,
+        stateVerificationOnL1: true,
+        fraudProofSystemAtLeast5Outsiders: true,
       },
       stage1: {
         principle: false,
-        stateVerificationOnL1: true,
-        fraudProofSystemAtLeast5Outsiders: true,
         usersHave7DaysToExit: true,
         usersCanExitWithoutCooperation: true,
         securityCouncilProperlySetUp: true,

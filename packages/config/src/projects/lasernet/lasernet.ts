@@ -13,10 +13,10 @@ export const lasernet: ScalingProject = underReviewL2({
       'Lasernet is a new oracle architecture with an ETH layer-2 at its core. Lasernet brings fully on-chain, verifiable, and trustless data through its permissionless and modular design.',
     purposes: ['Universal'],
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     links: {
       websites: ['https://diadata.org/'],
-      apps: ['https://diadata.org/app/'],
+      bridges: ['https://diadata.org/app/'],
       documentation: ['https://docs.diadata.org/resources/chain-information'],
       explorers: ['https://explorer.diadata.org/'],
       repositories: ['https://github.com/diadata-org/'],
@@ -31,6 +31,7 @@ export const lasernet: ScalingProject = underReviewL2({
   },
   chainConfig: {
     name: 'lasernet',
+    gasTokens: ['DIA'],
     chainId: 1050,
     apis: [
       {

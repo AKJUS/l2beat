@@ -32,7 +32,7 @@ export const grvt: ScalingProject = zkStackL2({
       'Gravity (GRVT) is a hybrid crypto derivatives exchange, providing a centralized exchange-like experience while being based on the ZK stack Validium codebase with confidential data availability and transaction filtering enabled.',
     links: {
       websites: ['https://grvt.io'],
-      apps: ['https://grvt.io/exchange/perpetual/BTC-USDT'],
+      bridges: ['https://grvt.io/exchange/perpetual/BTC-USDT'],
       documentation: ['https://help.grvt.io/en'], // https://docs.grvt.io/ is private
       socialMedia: [
         'https://x.com/grvt_io',
@@ -63,7 +63,7 @@ export const grvt: ScalingProject = zkStackL2({
       references: [
         {
           title: 'ExecutorFacet - _commitOneBatch() function',
-          url: 'https://etherscan.io/address/0x0A7C1b8D56BE02d9731e3A764107602f8F6dd490#code#F1#L50',
+          url: 'https://etherscan.io/address/0x2f116b9033d88Bb3Cf64C371AE5458fbA22BA39A#code#F1#L50',
         },
       ],
     },
@@ -99,7 +99,7 @@ export const grvt: ScalingProject = zkStackL2({
         },
         {
           title: 'Mailbox facet',
-          url: 'https://etherscan.io/address/0x26b9a55DaBab9A8e74815A9D6Cd7F74AC0d7215f#code#F1#L472',
+          url: 'https://etherscan.io/address/0x365D0ae3ECA13004daf2A4ba1501c01AaEbb4fec#code#F1#L472',
         },
         {
           title: 'TransactionFilterer',

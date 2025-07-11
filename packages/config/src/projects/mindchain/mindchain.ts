@@ -13,17 +13,20 @@ export const mindchain: ScalingProject = upcomingL3({
     description: 'MindChain is an FHE restaking Layer for PoS and AI networks.',
     purposes: ['AI'],
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     links: {
       websites: ['https://mindnetwork.xyz/'],
       documentation: ['https://docs.mindnetwork.xyz/minddocs'],
       repositories: ['https://github.com/mind-network'],
-      apps: ['https://fhebridge.mindnetwork.xyz/connectWallct'],
+      bridges: ['https://fhebridge.mindnetwork.xyz/connectWallct'],
       socialMedia: [
         'https://twitter.com/mindnetwork_xyz',
         'https://discord.com/invite/UYj94MJdGJ',
         'https://t.me/MindNetwork_xyz',
       ],
     },
+  },
+  ecosystemInfo: {
+    id: ProjectId('arbitrum-orbit'),
   },
 })

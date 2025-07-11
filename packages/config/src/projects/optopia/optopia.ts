@@ -18,7 +18,7 @@ export const optopia: ScalingProject = opStackL2({
       'Optopia is an OP stack Rollup on Ethereum focusing on the intersection of AI, Intents and DeFi.',
     links: {
       websites: ['https://optopia.ai/'],
-      apps: ['https://bridge.optopia.ai/'],
+      bridges: ['https://bridge.optopia.ai/'],
       documentation: ['https://docs.optopia.ai/', 'https://stack.optimism.io/'],
       explorers: ['https://scan.optopia.ai/'],
       repositories: ['https://github.com/OptopiaLabs'],
@@ -31,15 +31,6 @@ export const optopia: ScalingProject = opStackL2({
   },
   associatedTokens: ['OPAI'],
   genesisTimestamp: UnixTime(1715333977),
-  // failing, needs different analyzer?
-  // finality: {
-  //   type: 'OPStack-blob',
-  //   genesisTimestamp: UnixTime(1715333977),
-  //   minTimestamp: UnixTime(1715336651), // first blob
-  //   l2BlockTimeSeconds: 2,
-  //   lag: 0,
-  //   stateUpdate: 'disabled',
-  // },
   isNodeAvailable: true,
   chainConfig: {
     name: 'optopia',

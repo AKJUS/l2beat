@@ -51,7 +51,7 @@ export function NavSidebar({ groups, logoLink, sideLinks, topNavbar }: Props) {
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="!mt-2">
+      <SidebarContent className="mt-2!">
         {groups.map((group) => {
           return (
             <SidebarGroup key={group.title}>
@@ -144,7 +144,7 @@ function NavCollapsibleItem({
           </div>
           <ChevronIcon
             className={cn(
-              '-rotate-90 size-3 fill-primary transition-[transform,_color,_fill] duration-300 group-data-[state=open]:rotate-0',
+              '-rotate-90 size-3 fill-primary transition-[rotate,color,fill] duration-300 group-data-[state=open]:rotate-0',
               isActive && 'fill-brand',
             )}
           />
@@ -169,7 +169,7 @@ function NavCollapsibleItem({
           <CollapsibleTrigger className="group size-6">
             <ChevronIcon
               className={cn(
-                '-rotate-90 m-auto size-3 fill-primary transition-[transform,_color,_fill] duration-300 group-data-[state=open]:rotate-0',
+                '-rotate-90 m-auto size-3 fill-primary transition-[rotate,color,fill] duration-300 group-data-[state=open]:rotate-0',
                 isActive && 'fill-brand',
               )}
             />
@@ -184,7 +184,7 @@ function NavCollapsibleItem({
               key={item.title}
               isActive={getIsActive(item.href, pathname)}
             >
-              <span>{item.title}</span>
+              <span className="leading-tight">{item.title}</span>
             </SidebarGroupSubButton>
           ))}
           {group.secondaryLinks && group.secondaryLinks.length > 0 && (
@@ -208,5 +208,5 @@ function NavCollapsibleItem({
 }
 
 function getIsActive(href: string, pathname: string) {
-  return pathname === href
+  return pathname === href || pathname.startsWith(href + '/')
 }

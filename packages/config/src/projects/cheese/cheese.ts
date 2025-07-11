@@ -17,14 +17,14 @@ export const cheese: ScalingProject = underReviewL3({
   ],
   display: {
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     name: 'CheeseChain',
     slug: 'cheese',
     description: 'CheeseChain is an Orbit stack Optimium using $CHEESE.',
     purposes: ['Universal'],
     links: {
       websites: ['https://docs.cheesechain.xyz/'],
-      apps: [
+      bridges: [
         'https://cheesechain.bridge.caldera.xyz/',
         'https://bridge.cheesechain.xyz/',
       ],
@@ -35,6 +35,12 @@ export const cheese: ScalingProject = underReviewL3({
         'https://t.me/cheesegateway',
       ],
     },
+  },
+  chainConfig: {
+    name: 'cheese',
+    chainId: undefined,
+    gasTokens: ['CHEESE'],
+    apis: [],
   },
   ecosystemInfo: {
     id: ProjectId('arbitrum-orbit'),

@@ -25,6 +25,7 @@ import {
   generateDiscoveryDrivenContracts,
   generateDiscoveryDrivenPermissions,
 } from '../../templates/generateDiscoveryDrivenSections'
+import { getDiscoveryInfo } from '../../templates/getDiscoveryInfo'
 import { StarkexDAC } from '../../templates/starkex-template'
 
 const discovery = new ProjectDiscovery('myria')
@@ -66,11 +67,11 @@ export const myria: ScalingProject = {
     description:
       'Myria is an expansive blockchain gaming ecosystem, comprised of a blockchain gaming hub and Myriaverse metaverse.',
     purposes: ['NFT', 'Exchange', 'Gaming'],
-    stack: 'StarkEx',
-    category: 'Validium',
+    stacks: ['StarkEx'],
+    category: 'Other',
     links: {
       websites: ['https://myria.com/'],
-      apps: ['https://hub.immutable.com/'],
+      bridges: ['https://hub.immutable.com/'],
       documentation: ['https://docs.starkware.co/starkex/index.html'],
       repositories: ['https://github.com/starkware-libs/starkex-contracts'],
       socialMedia: [
@@ -165,4 +166,5 @@ export const myria: ScalingProject = {
     },
   ],
   customDa: StarkexDAC({ discovery }),
+  discoveryInfo: getDiscoveryInfo([discovery]),
 }

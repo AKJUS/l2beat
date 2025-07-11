@@ -17,6 +17,7 @@ const FINALIZATION_PERIOD_SECONDS: number = discovery.getContractValue<number>(
 )
 
 export const facet: ScalingProject = opStackL2({
+  reviewStatus: 'inReview',
   addedAt: UnixTime(1735889012), // 2025-01-03T01:36:52Z
   discovery,
   additionalBadges: [BADGES.Other.BasedSequencing],
@@ -28,7 +29,7 @@ export const facet: ScalingProject = opStackL2({
       'Facet is a based rollup built on the OP stack. It uses FCT as its native gas token, which is mintable by spending gas on L1.',
     links: {
       websites: ['https://facet.org/'],
-      apps: ['https://facetswap.com/bridge'],
+      bridges: ['https://facetswap.com/bridge'],
       documentation: ['https://docs.facet.org/'],
       explorers: ['https://explorer.facet.org/'],
       repositories: ['https://github.com/0xFacet'],

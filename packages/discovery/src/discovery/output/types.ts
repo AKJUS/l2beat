@@ -1,11 +1,12 @@
 import type {
+  ChainSpecificAddress,
   EthereumAddress,
   Hash256,
-  PrefixedEthereumAddress,
 } from '@l2beat/shared-pure'
 import type { ContractValueType } from '../config/ColorConfig'
 import type { Permission } from '../config/PermissionConfig'
 import type { ContractFieldSeverity } from '../config/StructureConfig'
+import type { DiscoveryBlockNumbers } from '../modelling/modelPermissions'
 
 export type ContractValue =
   | string
@@ -35,6 +36,7 @@ export interface DiscoveryOutput {
   sharedModules?: string[]
   usedTemplates: Record<string, Hash256>
   permissionsConfigHash?: Hash256
+  dependentDiscoveries?: DiscoveryBlockNumbers
 }
 
 export interface DiscoveryCustomType {
@@ -49,7 +51,7 @@ export interface FieldMeta {
 }
 
 export interface ResolvedPermissionPath {
-  address: PrefixedEthereumAddress
+  address: ChainSpecificAddress
   delay?: number
   condition?: string
 }
@@ -64,7 +66,7 @@ export interface ResolvedPermissionDetails {
 }
 
 export type ReceivedPermission = ResolvedPermissionDetails & {
-  from: PrefixedEthereumAddress
+  from: ChainSpecificAddress
 }
 
 export type ExternalReference = {
@@ -115,21 +117,22 @@ export interface ColorOutput {
 }
 
 export type PermissionsOutput = {
-  eoasWithMajorityUpgradePermissions?: PrefixedEthereumAddress[]
+  eoasWithMajorityUpgradePermissions?: ChainSpecificAddress[]
   permissionsConfigHash: Hash256
   permissions: {
-    receiver: PrefixedEthereumAddress
+    receiver: ChainSpecificAddress
     permission: Permission
-    from: PrefixedEthereumAddress
+    from: ChainSpecificAddress
     delay?: number
     description?: string
     condition?: string
     via?: {
-      address: PrefixedEthereumAddress
+      address: ChainSpecificAddress
       delay?: number
       condition?: string
     }[]
     isFinal: boolean
     role?: string
   }[]
+  dependentBlockNumbers: DiscoveryBlockNumbers
 }

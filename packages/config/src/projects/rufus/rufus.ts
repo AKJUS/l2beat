@@ -17,13 +17,13 @@ export const rufus: ScalingProject = underReviewL2({
     name: 'Rufus',
     slug: 'rufus',
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     description:
       'Rufus is an Orbit stack L2 with AnyTrust DA created for gaming by the team behind the Dogelon (ELON) token.',
     purposes: ['Gaming'],
     links: {
       websites: ['https://dogelonmars.com/'],
-      apps: ['https://rufus.bridge.caldera.xyz/'],
+      bridges: ['https://rufus.bridge.caldera.xyz/'],
       explorers: ['https://rufus.calderaexplorer.xyz/'],
       socialMedia: [
         'https://x.com/dogelonmars',
@@ -37,6 +37,7 @@ export const rufus: ScalingProject = underReviewL2({
   associatedTokens: ['ELON'],
   chainConfig: {
     name: 'rufus',
+    gasTokens: ['ELON'],
     chainId: 2420,
     apis: [
       {

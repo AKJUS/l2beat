@@ -19,13 +19,13 @@ export const onchain: ScalingProject = underReviewL3({
     name: 'Onchain Chain',
     slug: 'onchain',
     category: 'Optimium',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     description:
       'Onchain Chain is an Orbit stack L3 with AnyTrust DA powering the ONCHAIN score system that evaluates addresses connected to a farcaster profile based on their onchain activity.',
     purposes: ['Gaming', 'Social'],
     links: {
       websites: ['https://onchaincoin.io/', 'https://portal.onchaincoin.io/'],
-      apps: ['https://onchaingate.io/', 'https://t.me/onchaincoin_bot'],
+      bridges: ['https://onchaingate.io/', 'https://t.me/onchaincoin_bot'],
       explorers: ['https://explorer.onchainpoints.xyz/'],
       socialMedia: [
         'https://x.com/onchaincoin',
@@ -36,6 +36,7 @@ export const onchain: ScalingProject = underReviewL3({
   },
   chainConfig: {
     name: 'onchain',
+    gasTokens: ['POP'],
     chainId: 17071,
     apis: [
       {

@@ -1,4 +1,4 @@
-import { UnixTime } from '@l2beat/shared-pure'
+import { ProjectId, UnixTime } from '@l2beat/shared-pure'
 import { BADGES } from '../../common/badges'
 import type { ScalingProject } from '../../internalTypes'
 import { upcomingL2 } from '../../templates/upcoming'
@@ -15,10 +15,10 @@ export const fuse: ScalingProject = upcomingL2({
       'Fuse Ember is a Layer 2 blockchain, designed for real-world payments and scalable Web3 adoption. Powered by Polygon CDK and zkRollup technology, Ember delivers fast, low-cost transaction. It features DAC-powered data availability, AggLayer interoperability, and native account abstraction.',
     purposes: ['Universal'],
     category: 'Validium',
-    stack: 'Agglayer CDK',
+    stacks: ['Agglayer CDK'],
     links: {
       websites: ['https://fuse.io/'],
-      apps: ['https://fuse.io/network'],
+      bridges: ['https://fuse.io/network'],
       documentation: ['https://docs.fuse.io/fuse-ember/about-fuse-ember-l2/'],
       explorers: ['https://explorer.fuse.io/'],
       repositories: ['https://github.com/fuseio'],
@@ -28,5 +28,8 @@ export const fuse: ScalingProject = upcomingL2({
         'https://t.me/fuseio',
       ],
     },
+  },
+  ecosystemInfo: {
+    id: ProjectId('agglayer'),
   },
 })

@@ -16,7 +16,6 @@ import { StageCell } from '~/components/table/cells/stage/StageCell'
 import { InfoIcon } from '~/icons/Info'
 import type { ProjectScalingEntry } from '~/server/features/scaling/project/getScalingProjectEntry'
 import { cn } from '~/utils/cn'
-import { formatNumber } from '~/utils/number-format/formatNumber'
 import { TokenBreakdownStat } from './TokenBreakdownStat'
 
 interface Props {
@@ -40,22 +39,11 @@ export function ProjectScalingStats({ project, className }: Props) {
         project.header.activity ? (
           <ValueWithPercentageChange
             change={project.header.activity.uopsWeeklyChange}
-            className="!leading-none font-medium md:font-bold md:text-lg"
-            changeClassName="md:text-base md:font-medium !leading-none"
+            className="font-medium leading-none! md:font-bold md:text-lg"
+            changeClassName="md:text-base md:font-medium leading-none!"
           >
             {project.header.activity.lastDayUops.toFixed(2)}
           </ValueWithPercentageChange>
-        ) : (
-          <NoDataBadge />
-        )
-      }
-    />,
-    <ProjectStat
-      key="ops-count"
-      title="30D ops count"
-      value={
-        project.header.activity ? (
-          formatNumber(project.header.activity.uopsCount)
         ) : (
           <NoDataBadge />
         )
@@ -97,6 +85,9 @@ export function ProjectScalingStats({ project, className }: Props) {
     />,
     project.header.hostChain ? (
       <ProjectStat title="Host chain" value={project.header.hostChain} />
+    ) : undefined,
+    project.header.chainId ? (
+      <ProjectStat title="Chain ID" value={project.header.chainId} />
     ) : undefined,
   ])
 
@@ -161,7 +152,7 @@ function ProjectStat(props: ProjectStat) {
 
       <span
         className={cn(
-          '!leading-none font-medium text-lg md:font-bold',
+          'font-medium text-lg leading-none! md:font-bold',
           props.valueClassName,
         )}
       >

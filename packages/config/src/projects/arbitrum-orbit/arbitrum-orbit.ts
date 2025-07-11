@@ -12,7 +12,7 @@ export const arbitrumOrbit: BaseProject = {
     description: 'The Arbitrum Orbit is a network of Arbitrum chains.',
     links: {
       websites: ['https://arbitrum.io', 'https://portal.arbitrum.io/'],
-      apps: ['https://bridge.arbitrum.io/'],
+      bridges: ['https://bridge.arbitrum.io/'],
     },
     badges: [BADGES.Stack.Orbit],
   },
@@ -43,7 +43,8 @@ export const arbitrumOrbit: BaseProject = {
       buildOn:
         'https://docs.arbitrum.io/launch-orbit-chain/a-gentle-introduction',
       learnMore: 'https://arbitrum.io/orbit',
-      governanceTopDelegates: 'https://www.tally.xyz/gov/arbitrum/delegates',
+      governanceDelegateToL2BEAT:
+        'https://www.tally.xyz/gov/arbitrum/delegate/0x1b686ee8e31c5959d9f5bbd8122a58682788eead',
       governanceProposals: 'https://www.tally.xyz/gov/arbitrum/proposals',
     },
     token: {

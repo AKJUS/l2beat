@@ -13,7 +13,7 @@ export const hook: ScalingProject = underReviewL3({
     name: 'Hook',
     slug: 'hook',
     category: 'Optimistic Rollup',
-    stack: 'Arbitrum',
+    stacks: ['Arbitrum'],
     description:
       'Hook is an Orbit stack L3 Appchain on Arbitrum powering a perpetuals DEX for tokens and NFTs.',
     headerWarning:
@@ -21,7 +21,7 @@ export const hook: ScalingProject = underReviewL3({
     purposes: ['Universal', 'NFT', 'Exchange'],
     links: {
       websites: ['https://hook.xyz/'],
-      apps: ['https://hook.xyz/trade/'],
+      bridges: ['https://hook.xyz/trade/'],
       documentation: ['https://odysseydocumentation.hook.xyz/'],
       explorers: ['https://hook.calderaexplorer.xyz/'],
       socialMedia: [
@@ -31,6 +31,9 @@ export const hook: ScalingProject = underReviewL3({
         'https://warpcast.com/hookprotocol',
       ],
     },
+  },
+  ecosystemInfo: {
+    id: ProjectId('arbitrum-orbit'),
   },
   chainConfig: {
     name: 'hook',

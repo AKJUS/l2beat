@@ -18,7 +18,7 @@ export const swan: ScalingProject = opStackL2({
       'Swan Chain is an OP Stack L2 providing comprehensive AI infrastructure on the blockchain.',
     links: {
       websites: ['https://swanchain.io/'],
-      apps: ['https://bridge.swanchain.io/'],
+      bridges: ['https://bridge.swanchain.io/'],
       documentation: ['https://docs.swanchain.io/'],
       explorers: [
         'https://mainnet-explorer.swanchain.io/',
@@ -35,15 +35,6 @@ export const swan: ScalingProject = opStackL2({
     },
   },
   genesisTimestamp: UnixTime(1718640220),
-  // failing, needs different analyzer?
-  // finality: {
-  //   type: 'OPStack-blob',
-  //   genesisTimestamp: UnixTime(1718640220),
-  //   minTimestamp: UnixTime(1718683727), // first blob
-  //   l2BlockTimeSeconds: 2,
-  //   lag: 0,
-  //   stateUpdate: 'disabled',
-  // },
   isNodeAvailable: true,
   chainConfig: {
     name: 'swan',

@@ -24,10 +24,17 @@ interface Props {
 export function ProjectScalingSummary({ project }: Props) {
   return (
     <FullPageHeader className="pt-8 pb-0 md:pt-12 md:pb-8">
-      <section id="summary" className="w-full max-md:bg-header-primary">
+      <section
+        id="summary"
+        data-role="project-section"
+        className="w-full max-md:bg-header-primary"
+      >
         <div className="flex justify-between gap-4">
           <div className="w-full space-y-4 md:space-y-6">
-            <ProjectHeader project={project} />
+            <ProjectHeader
+              project={project}
+              ongoingAnomaly={project.header.ongoingAnomaly}
+            />
             <div className="space-y-2">
               {project.archivedAt && <ArchivedBar />}
               {project.isUpcoming && <UpcomingBar />}
@@ -69,7 +76,7 @@ export function ProjectScalingSummary({ project }: Props) {
                 )}
               </div>
             ) : null}
-            <HorizontalSeparator className="max-md:-mx-4 md:!my-6 my-4 max-md:w-screen md:hidden" />
+            <HorizontalSeparator className="max-md:-mx-4 my-4 max-md:w-screen md:my-6! md:hidden" />
 
             <div className="max-md:hidden">
               <DesktopProjectLinks
@@ -84,28 +91,30 @@ export function ProjectScalingSummary({ project }: Props) {
                 detailedBreakdownHref={`/scaling/projects/${project.slug}/tvs-breakdown`}
                 archivedAt={project.archivedAt}
               />
-              <HorizontalSeparator className="max-md:-mx-4 md:!my-6 my-4 max-md:w-screen md:hidden" />
+              <HorizontalSeparator className="max-md:-mx-4 my-4 max-md:w-screen md:my-6! md:hidden" />
               <ProjectScalingStats
                 project={project}
-                className="md:order-first md:col-span-2 [@media(min-width:1000px)]:order-none"
+                className="md:order-first md:col-span-2 [@media(min-width:1000px)]:order-0"
               />
             </div>
           </div>
           <ProjectScalingRosette project={project} />
         </div>
 
-        <div className="md:hidden">
-          <HorizontalSeparator className="max-md:-mx-4 mt-4 mb-2 max-md:w-screen md:hidden" />
-          <div className="flex items-center justify-between">
-            <a
-              className="text-link text-xs underline"
-              href={project.discoUiHref}
-            >
-              Explore more in Discovery UI
-            </a>
-            {project.discoUiHref && <DiscoUiLink href={project.discoUiHref} />}
+        {project.discoUiHref && (
+          <div className="md:hidden">
+            <HorizontalSeparator className="max-md:-mx-4 mt-4 mb-2 max-md:w-screen md:hidden" />
+            <div className="flex items-center justify-between">
+              <a
+                className="text-link text-xs underline"
+                href={project.discoUiHref}
+              >
+                Explore more in Discovery UI
+              </a>
+              <DiscoUiLink href={project.discoUiHref} />
+            </div>
           </div>
-        </div>
+        )}
 
         <HorizontalSeparator className="max-md:-mx-4 mt-2 max-md:w-screen md:my-6" />
         <div className="md:hidden">

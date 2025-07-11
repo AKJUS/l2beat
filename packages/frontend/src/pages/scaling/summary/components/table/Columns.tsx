@@ -48,7 +48,7 @@ export const scalingSummaryColumns = [
     cell: (ctx) => (
       <TwoRowCell>
         <TwoRowCell.First>
-          <TypeInfo stack={ctx.row.original.stack}>{ctx.getValue()}</TypeInfo>
+          <TypeInfo stacks={ctx.row.original.stacks}>{ctx.getValue()}</TypeInfo>
         </TwoRowCell.First>
         {ctx.row.original.capability === 'appchain' && (
           <TwoRowCell.Second>
@@ -87,7 +87,7 @@ export const scalingSummaryColumns = [
   ),
   columnHelper.accessor(
     (e) => {
-      return e.tvs?.breakdown?.total
+      return e.tvs?.breakdown?.total ?? 0
     },
     {
       id: 'total',
@@ -105,7 +105,6 @@ export const scalingSummaryColumns = [
           />
         )
       },
-      sortUndefined: 'last',
       meta: {
         align: 'right',
         tooltip:
@@ -198,8 +197,12 @@ export const scalingSummaryOthersColumns = [
   ...scalingSummaryValidiumAndOptimiumsColumns.slice(5),
 ]
 
-export const scalingSummaryUnderReviewColumns = [
-  ...scalingSummaryColumns.slice(0, 3),
+export const scalingSummaryNotReviewedColumns = [
+  ...getScalingCommonProjectColumns(
+    columnHelper,
+    (row) => `/scaling/projects/${row.slug}`,
+    { ignoreUnderReviewIcon: true },
+  ),
   ...scalingSummaryColumns.slice(4, 5),
   ...scalingSummaryColumns.slice(6, 8),
 ]
