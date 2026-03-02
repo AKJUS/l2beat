@@ -21,7 +21,7 @@
     "@l2beat/dal": "workspace:*",
     "@l2beat/validate": "workspace:*",
     "express": "^5.0.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
