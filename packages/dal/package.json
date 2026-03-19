@@ -27,7 +27,7 @@
     "@l2beat/validate": "workspace:*",
     "@types/redis": "^4.0.11",
     "redis": "^4.7.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.23"
   },
   "devDependencies": {
     "@l2beat/typescript-config": "workspace:*",
