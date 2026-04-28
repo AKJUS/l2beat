@@ -22,9 +22,9 @@
     "@l2beat/discovery": "workspace:*",
     "@l2beat/shared": "workspace:*",
     "@l2beat/shared-pure": "workspace:*",
-    "kysely": "^0.27.3",
-    "lodash": "^4.17.21",
-    "nanoid": "^3.3.7",
+    "kysely": "^0.28.14",
+    "lodash": "^4.18.1",
+    "nanoid": "^3.3.8",
     "pg": "^8.8.0"
   },
   "devDependencies": {
