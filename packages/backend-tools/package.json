@@ -52,7 +52,7 @@
     "chalk": "^4.1.2",
     "dotenv": "^16.3.1",
     "error-stack-parser": "^2.1.4",
-    "uuid": "11.1.0"
+    "uuid": "14.0.0"
   },
   "devDependencies": {
     "@l2beat/typescript-config": "workspace:*"
