@@ -62,8 +62,8 @@
     "fuzzysort": "^3.1.0",
     "gray-matter": "^4.0.3",
     "image-size": "^2.0.1",
-    "lodash": "^4.17.21",
-    "markdown-it": "^14.1.0",
+    "lodash": "^4.18.1",
+    "markdown-it": "^14.1.1",
     "next-themes": "^0.3.0",
     "node-cron": "^4.2.1",
     "react": "19.0.0",
@@ -74,7 +74,7 @@
     "sirv": "^3.0.1",
     "tailwind-merge": "^3.3.1",
     "vaul": "^0.9.1",
-    "ws": "^8.18.2"
+    "ws": "^8.20.1"
   },
   "devDependencies": {
     "@l2beat/typescript-config": "workspace:*",
@@ -91,13 +91,13 @@
     "@vitejs/plugin-react-swc": "^4.2.3",
     "autoprefixer": "^10.4.20",
     "mockdate": "^3.0.5",
-    "postcss": "^8.4.38",
+    "postcss": "^8.5.10",
     "postcss-load-config": "^6.0.1",
     "tailwindcss": "^4.1.11",
     "tailwindcss-animate": "^1.0.7",
     "tinify": "^1.7.1",
     "tsx": "^4.9.3",
-    "vite": "^7.3.1"
+    "vite": "^6.4.2"
   },
   "overrides": {
     "react-is": "19.0.0",
